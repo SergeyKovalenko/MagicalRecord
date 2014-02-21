@@ -36,18 +36,20 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
 
 - (BOOL) MR_importValue:(id)value forKey:(NSString *)key
 {
-    NSString *selectorString = [NSString stringWithFormat:@"import%@:", [key MR_capitalizedFirstCharacterString]];
-    SEL selector = NSSelectorFromString(selectorString);
-    if ([self respondsToSelector:selector])
-    {
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
-        [invocation setTarget:self];
-        [invocation setSelector:selector];
-        [invocation setArgument:&value atIndex:2];
-        [invocation invoke];
-//        [self performSelector:selector withObject:value];
-        return YES;
-    }
+//    NSString *selectorString = [NSString stringWithFormat:@"import%@:", [key MR_capitalizedFirstCharacterString]];
+//    SEL selector = NSSelectorFromString(selectorString);
+//    if ([self respondsToSelector:selector])
+//    {
+//        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
+//        [invocation setTarget:self];
+//        [invocation setSelector:selector];
+//        [invocation setArgument:&value atIndex:2];
+//        [invocation invoke];
+//
+////        [self performSelector:selector withObject:value];
+//
+//        return YES;
+//    }
     return NO;
 }
 
@@ -211,13 +213,13 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
     {
         [self willImport:objectData];
     }
-    MR_swapMethodsFromClass([objectData class], @selector(valueForUndefinedKey:), @selector(MR_valueForUndefinedKey:));
+//    MR_swapMethodsFromClass([objectData class], @selector(valueForUndefinedKey:), @selector(MR_valueForUndefinedKey:));
     return YES;
 }
 
 - (BOOL) MR_postImport:(id)objectData;
 {
-    MR_swapMethodsFromClass([objectData class], @selector(valueForUndefinedKey:), @selector(MR_valueForUndefinedKey:));
+//    MR_swapMethodsFromClass([objectData class], @selector(valueForUndefinedKey:), @selector(MR_valueForUndefinedKey:));
     if ([self respondsToSelector:@selector(didImport:)])
     {
         [self performSelector:@selector(didImport:) withObject:objectData];
