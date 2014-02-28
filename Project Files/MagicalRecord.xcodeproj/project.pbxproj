@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2E4B7418C0BEA1009EC09B /* ImportAbstractEntitySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E4B7318C0BEA1009EC09B /* ImportAbstractEntitySpec.m */; };
+		2B2E4B8918C0CA40009EC09B /* SubEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E4B7E18C0C0BD009EC09B /* SubEntity.m */; };
+		2B2E4B8A18C0CA40009EC09B /* AbstractEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E4B8018C0C0BD009EC09B /* AbstractEntity.m */; };
 		90171E1617C3210F00E7084A /* NSManagedObjectContext+MagicalSavesSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9099490017C2F0B700BC2B5C /* NSManagedObjectContext+MagicalSavesSpec.m */; };
 		90171E1717C3210F00E7084A /* NSManagedObjectContext+MagicalSavesSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 9099490017C2F0B700BC2B5C /* NSManagedObjectContext+MagicalSavesSpec.m */; };
 		90171E1B17C329CC00E7084A /* FixtureHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = C7CF9B6C17498B5C008D9D13 /* FixtureHelpers.m */; };
@@ -242,6 +245,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B2E4B7318C0BEA1009EC09B /* ImportAbstractEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportAbstractEntitySpec.m; sourceTree = "<group>"; };
+		2B2E4B7D18C0C0BD009EC09B /* SubEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = SubEntity.h; sourceTree = "<group>"; };
+		2B2E4B7E18C0C0BD009EC09B /* SubEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = SubEntity.m; sourceTree = "<group>"; };
+		2B2E4B7F18C0C0BD009EC09B /* AbstractEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = AbstractEntity.h; sourceTree = "<group>"; };
+		2B2E4B8018C0C0BD009EC09B /* AbstractEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = AbstractEntity.m; sourceTree = "<group>"; };
 		90171E1817C3283C00E7084A /* ImportSingleRelatedEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportSingleRelatedEntitySpec.m; sourceTree = "<group>"; };
 		90171E1F17C3300500E7084A /* NSManagedObject+MagicalRecordSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+MagicalRecordSpec.m"; sourceTree = "<group>"; };
 		909948F517C2EF9800BC2B5C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -495,6 +503,10 @@
 		9099490C17C2F42100BC2B5C /* TestModel */ = {
 			isa = PBXGroup;
 			children = (
+				2B2E4B7D18C0C0BD009EC09B /* SubEntity.h */,
+				2B2E4B7E18C0C0BD009EC09B /* SubEntity.m */,
+				2B2E4B7F18C0C0BD009EC09B /* AbstractEntity.h */,
+				2B2E4B8018C0C0BD009EC09B /* AbstractEntity.m */,
 				9099490D17C2F42100BC2B5C /* _AbstractRelatedEntity.h */,
 				9099490E17C2F42100BC2B5C /* _AbstractRelatedEntity.m */,
 				9099490F17C2F42100BC2B5C /* _ConcreteRelatedEntity.h */,
@@ -657,6 +669,7 @@
 			children = (
 				909948FD17C2F09500BC2B5C /* Needs Porting */,
 				90171E1817C3283C00E7084A /* ImportSingleRelatedEntitySpec.m */,
+				2B2E4B7318C0BEA1009EC09B /* ImportAbstractEntitySpec.m */,
 			);
 			path = DataImport;
 			sourceTree = "<group>";
@@ -1036,19 +1049,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C7CF97FD174984CA008D9D13 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
 		C7CF9814174984E4008D9D13 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1137,6 +1137,7 @@
 			files = (
 				90171E2017C3300500E7084A /* NSManagedObject+MagicalRecordSpec.m in Sources */,
 				9099495317C2F42100BC2B5C /* DifferentClassNameMapping.m in Sources */,
+				2B2E4B7418C0BEA1009EC09B /* ImportAbstractEntitySpec.m in Sources */,
 				9099493917C2F42100BC2B5C /* _AbstractRelatedEntity.m in Sources */,
 				9099496317C2F42100BC2B5C /* SingleRelatedEntity.m in Sources */,
 				9099494917C2F42100BC2B5C /* _SingleEntityRelatedToMappedEntityWithSecondaryMappings.m in Sources */,
@@ -1162,6 +1163,8 @@
 				9099493D17C2F42100BC2B5C /* _DifferentClassNameMapping.m in Sources */,
 				9099493B17C2F42100BC2B5C /* _ConcreteRelatedEntity.m in Sources */,
 				9099495717C2F42100BC2B5C /* SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey.m in Sources */,
+				2B2E4B8918C0CA40009EC09B /* SubEntity.m in Sources */,
+				2B2E4B8A18C0CA40009EC09B /* AbstractEntity.m in Sources */,
 				9099496117C2F42100BC2B5C /* SingleEntityWithNoRelationships.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

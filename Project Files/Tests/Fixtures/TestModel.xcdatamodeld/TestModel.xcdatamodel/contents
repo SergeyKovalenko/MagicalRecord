@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3389" systemVersion="13A538g" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B3116" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="AbstractEntity" representedClassName="AbstractEntity" isAbstract="YES" syncable="YES">
+        <attribute name="abstractAttribute" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="AbstractRelatedEntity" representedClassName="AbstractRelatedEntity" isAbstract="YES" syncable="YES">
         <attribute name="sampleBaseAttribute" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -97,17 +100,22 @@
         <relationship name="testConcreteToManyRelationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ConcreteRelatedEntity" syncable="YES"/>
         <relationship name="testConcreteToOneRelationship" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="ConcreteRelatedEntity" syncable="YES"/>
     </entity>
+    <entity name="SubEntity" representedClassName="SubEntity" parentEntity="AbstractEntity" syncable="YES">
+        <attribute name="stringAttribute" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="AbstractRelatedEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ConcreteRelatedEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MappedEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleEntityRelatedToMappedEntityUsingDefaults" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleEntityRelatedToMappedEntityWithNestedMappedAttributes" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleEntityRelatedToMappedEntityWithSecondaryMappings" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleEntityWithNoRelationships" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SingleRelatedEntity" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="EntityWithDiffernentClassName" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="AbstractRelatedEntity" positionX="106" positionY="-252" width="128" height="60"/>
+        <element name="ConcreteRelatedEntity" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="EntityWithDiffernentClassName" positionX="0" positionY="0" width="128" height="43"/>
+        <element name="MappedEntity" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SingleEntityRelatedToMappedEntityUsingDefaults" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="SingleEntityRelatedToMappedEntityWithNestedMappedAttributes" positionX="0" positionY="0" width="128" height="60"/>
+        <element name="SingleEntityRelatedToMappedEntityWithSecondaryMappings" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="SingleEntityWithNoRelationships" positionX="0" positionY="0" width="128" height="255"/>
+        <element name="SingleRelatedEntity" positionX="-171" positionY="-207" width="128" height="120"/>
+        <element name="AbstractEntity" positionX="-360" positionY="-36" width="128" height="58"/>
+        <element name="SubEntity" positionX="-360" positionY="74" width="128" height="58"/>
     </elements>
 </model>
