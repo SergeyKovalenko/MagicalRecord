@@ -190,8 +190,7 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
         
         NSRelationshipDescription *relationshipInfo = [relationships valueForKey:relationshipName];
         
-        NSString *lookupKey = [[relationshipInfo userInfo] valueForKey:kMagicalRecordImportRelationshipMapKey] ?: relationshipName;
-        id relatedObjectData = [relationshipData valueForKeyPath:lookupKey];
+        id relatedObjectData = [relationshipData MR_valueForPrimaryKeyAttribute:relationshipInfo];
         
         if (relatedObjectData == nil || [relatedObjectData isEqual:[NSNull null]]) 
         {
@@ -341,14 +340,17 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
 {
     NSMutableArray *resultObjects = [NSMutableArray arrayWithCapacity:listOfObjectData.count];
     
-    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"%K == $identifierValue AND $typeKey == $typeValue",primaryAttribute.name];
+   
+
     NSPredicate *compoundPredicate = nil;
     NSEntityDescription *entity = [self MR_entityDescription];
+    NSAttributeDescription *classTypeAttribute = [entity MR_subentityAttributeToInheritBy];
+    
+    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"%K == $identifierValue AND $typeKey == $typeValue",primaryAttribute.name];
 
     for(id singleObjectData in listOfObjectData)
     {
         NSEntityDescription *importedEntity = [entity MR_importedEntityFromObject:singleObjectData];
-        NSAttributeDescription *classTypeAttribute = [importedEntity MR_subentityAttributeToInheritBy];
         
         id primaryKeyValue = [singleObjectData MR_valueForPrimaryKeyAttribute:primaryAttribute];
         id typeyKeyValue = [singleObjectData MR_valueForAttribute:classTypeAttribute];
@@ -378,11 +380,11 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
     
     for(id singleObjectData in listOfObjectData)
     {
-        NSEntityDescription *importedEntity = [[self MR_entityDescription] MR_importedEntityFromObject:singleObjectData];
-        NSAttributeDescription *classTypeAttribute = [importedEntity MR_subentityAttributeToInheritBy];
+        NSEntityDescription *importedEntity = [entity MR_importedEntityFromObject:singleObjectData];
         
         id primaryKey = [singleObjectData MR_valueForAttribute:primaryAttribute];
         id typeyKeyValue = [singleObjectData MR_valueForPrimaryKeyAttribute:classTypeAttribute];
+        
         NSString *key = [NSString stringWithFormat:@"%@.%@", typeyKeyValue, primaryKey];
 
         NSManagedObject *object = [objectCache objectForKey:key];

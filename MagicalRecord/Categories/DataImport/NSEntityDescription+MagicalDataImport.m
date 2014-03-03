@@ -20,7 +20,7 @@
 
 - (NSAttributeDescription *) MR_subentityAttributeToInheritBy;
 {
-    NSAssert(self.isAbstract, @"%@ entity should be an abstract entity",self.name);
+    NSAssert(self.isAbstract , @"%@ entity should be an abstract entity",self.name);
     NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportSubentityLinkedByKey] ?: subentityKeyNameFromString([self name]);
     
     return [self MR_attributeDescriptionForName:lookupKey];
@@ -31,7 +31,7 @@
     NSAssert(self.isAbstract, @"%@ entity should be an abstract entity",self.name);
     NSMutableDictionary *classNamesByType = [NSMutableDictionary dictionary];
     for (NSEntityDescription *subentity in self.subentities) {
-        NSString *type = [[self userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
+        NSString *type = [[subentity userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
         classNamesByType[type] = subentity;
     }
     return [classNamesByType copy];

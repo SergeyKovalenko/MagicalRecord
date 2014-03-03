@@ -23,7 +23,7 @@ NSUInteger const kMagicalRecordImportMaximumAttributeFailoverDepth = 10;
     return nil;
 }
 
-- (NSString *) MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo;
+- (NSString *) MR_lookupKeyForAttribute:(NSPropertyDescription *)attributeInfo;
 {
     NSString *attributeName = [attributeInfo name];
     NSString *lookupKey = [[attributeInfo userInfo] valueForKey:kMagicalRecordImportAttributeKeyMapKey] ?: attributeName;
@@ -44,7 +44,7 @@ NSUInteger const kMagicalRecordImportMaximumAttributeFailoverDepth = 10;
     return value != nil ? lookupKey : nil;
 }
 
-- (id) MR_valueForAttribute:(NSAttributeDescription *)attributeInfo
+- (id) MR_valueForAttribute:(NSPropertyDescription *)attributeInfo
 {
     NSString *lookupKey = [self MR_lookupKeyForAttribute:attributeInfo];
     return lookupKey ? [self valueForKeyPath:lookupKey] : nil;
