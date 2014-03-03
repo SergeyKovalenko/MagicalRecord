@@ -14,6 +14,7 @@ NSDate * dateFromString(NSString *value, NSString *format);
 NSNumber * numberFromString(NSString *value);
 NSString * attributeNameFromString(NSString *value);
 NSString * primaryKeyNameFromString(NSString *value);
+NSString * subentityKeyNameFromString(NSString *value);
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>

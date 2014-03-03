@@ -246,10 +246,11 @@
 
 /* Begin PBXFileReference section */
 		2B2E4B7318C0BEA1009EC09B /* ImportAbstractEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportAbstractEntitySpec.m; sourceTree = "<group>"; };
-		2B2E4B7D18C0C0BD009EC09B /* SubEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = SubEntity.h; sourceTree = "<group>"; };
-		2B2E4B7E18C0C0BD009EC09B /* SubEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = SubEntity.m; sourceTree = "<group>"; };
-		2B2E4B7F18C0C0BD009EC09B /* AbstractEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = AbstractEntity.h; sourceTree = "<group>"; };
-		2B2E4B8018C0C0BD009EC09B /* AbstractEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = AbstractEntity.m; sourceTree = "<group>"; };
+		2B2E4B7D18C0C0BD009EC09B /* SubEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubEntity.h; sourceTree = "<group>"; };
+		2B2E4B7E18C0C0BD009EC09B /* SubEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubEntity.m; sourceTree = "<group>"; };
+		2B2E4B7F18C0C0BD009EC09B /* AbstractEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractEntity.h; sourceTree = "<group>"; };
+		2B2E4B8018C0C0BD009EC09B /* AbstractEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractEntity.m; sourceTree = "<group>"; };
+		2BE4181418C13AE9009EE5CF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		90171E1817C3283C00E7084A /* ImportSingleRelatedEntitySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportSingleRelatedEntitySpec.m; sourceTree = "<group>"; };
 		90171E1F17C3300500E7084A /* NSManagedObject+MagicalRecordSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+MagicalRecordSpec.m"; sourceTree = "<group>"; };
 		909948F517C2EF9800BC2B5C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -601,6 +602,7 @@
 				90DD201E167AA4350033BA25 /* SenTestingKit.framework */,
 				909B48CA17C2EC7E00CE8C5E /* UIKit.framework */,
 				9099497217C3044700BC2B5C /* XCTest.framework */,
+				2BE4181418C13AE9009EE5CF /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -880,7 +882,6 @@
 				C7CF97FA174984CA008D9D13 /* Sources */,
 				C7CF97FB174984CA008D9D13 /* Frameworks */,
 				C7CF97FC174984CA008D9D13 /* Resources */,
-				C7CF97FD174984CA008D9D13 /* ShellScript */,
 			);
 			buildRules = (
 			);

@@ -10,8 +10,14 @@
 @interface NSEntityDescription (MagicalRecord_DataImport)
 
 - (NSAttributeDescription *) MR_primaryAttributeToRelateBy;
+
 - (NSManagedObject *) MR_createInstanceInContext:(NSManagedObjectContext *)context;
 
+- (NSEntityDescription *)MR_importedEntityFromObject:(id)objectData;
+
+- (NSAttributeDescription *) MR_subentityAttributeToInheritBy;
+
+- (NSDictionary *) MR_subentitisByType;
 /**
  *	Safely returns an attribute description for the given name, otherwise returns nil. In certain circumstances, the keys of the dictionary returned by `attributesByName` are not standard NSStrings and won't match using object subscripting or standard `objectForKey:` lookups.
  *

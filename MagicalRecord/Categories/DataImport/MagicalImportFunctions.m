@@ -23,6 +23,13 @@ NSString * primaryKeyNameFromString(NSString *value)
     return [firstCharacter stringByAppendingFormat:@"%@ID", [value substringFromIndex:1]];
 }
 
+NSString * subentityKeyNameFromString(NSString *value)
+{
+    NSString *firstCharacter = [[value substringToIndex:1] lowercaseString];
+    return [firstCharacter stringByAppendingFormat:@"%@Type", [value substringFromIndex:1]];
+}
+
+
 NSDate * adjustDateForDST(NSDate *date)
 {
     NSTimeInterval dstOffset = [[NSTimeZone localTimeZone] daylightSavingTimeOffsetForDate:date];

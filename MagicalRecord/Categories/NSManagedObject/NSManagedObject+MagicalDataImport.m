@@ -21,6 +21,10 @@ NSString * const kMagicalRecordImportRelationshipMapKey             = @"mappedKe
 NSString * const kMagicalRecordImportRelationshipLinkedByKey        = @"relatedByAttribute";
 NSString * const kMagicalRecordImportRelationshipTypeKey            = @"type";  //this needs to be revisited
 
+NSString * const kMagicalRecordImportSubentityLinkedByKey           = @"subentitiesAttribute";
+NSString * const kMagicalRecordImportSubentityClassMapKey           = @"mappedSubentityClassName";
+
+
 NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"useDefaultValueWhenNotPresent";
 
 @interface NSObject (MagicalRecord_DataImportControls)
@@ -296,14 +300,19 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
 
 + (id) MR_importFromObject:(id)objectData inContext:(NSManagedObjectContext *)context;
 {
-    NSAttributeDescription *primaryAttribute = [[self MR_entityDescription] MR_primaryAttributeToRelateBy];
+    NSEntityDescription *entity = [self MR_entityDescription];
+    NSAttributeDescription *primaryAttribute = [entity MR_primaryAttributeToRelateBy];
     
     id value = [objectData MR_valueForAttribute:primaryAttribute];
     
-    NSManagedObject *managedObject = [self MR_findFirstByAttribute:[primaryAttribute name] withValue:value inContext:context];
+    NSEntityDescription *importedEntity = [entity MR_importedEntityFromObject:objectData];
+    id selfClass = NSClassFromString(importedEntity.managedObjectClassName);
+    
+    NSManagedObject *managedObject = [selfClass MR_findFirstByAttribute:[primaryAttribute name] withValue:value inContext:context];
+    
     if (managedObject == nil) 
     {
-        managedObject = [self MR_createInContext:context];
+        managedObject = [importedEntity MR_createInstanceInContext:context];
     }
 
     [managedObject MR_importValuesForKeysWithObject:objectData];
@@ -332,35 +341,55 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
 {
     NSMutableArray *resultObjects = [NSMutableArray arrayWithCapacity:listOfObjectData.count];
     
-    NSMutableSet *keysToFetchBy = [NSMutableSet setWithCapacity:listOfObjectData.count];
-    
+    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"%K == $identifierValue AND $typeKey == $typeValue",primaryAttribute.name];
+    NSPredicate *compoundPredicate = nil;
+    NSEntityDescription *entity = [self MR_entityDescription];
+
     for(id singleObjectData in listOfObjectData)
     {
-        id primaryKey = [singleObjectData MR_valueForPrimaryKeyAttribute:primaryAttribute];
-        if(primaryKey)
+        NSEntityDescription *importedEntity = [entity MR_importedEntityFromObject:singleObjectData];
+        NSAttributeDescription *classTypeAttribute = [importedEntity MR_subentityAttributeToInheritBy];
+        
+        id primaryKeyValue = [singleObjectData MR_valueForPrimaryKeyAttribute:primaryAttribute];
+        id typeyKeyValue = [singleObjectData MR_valueForAttribute:classTypeAttribute];
+
+        if(primaryKeyValue && typeyKeyValue)
         {
-            [keysToFetchBy addObject:primaryKey];
+            NSString *lookupTypeKey = [singleObjectData MR_lookupKeyForAttribute:classTypeAttribute];
+            NSDictionary *variables = @{@"identifierValue" : primaryKeyValue,
+                                        @"typeKey":lookupTypeKey,
+                                        @"typeValue" : typeyKeyValue};
+            
+            NSPredicate *fulfilledPredicate = [predicateTemplate predicateWithSubstitutionVariables:variables];
+            compoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:fulfilledPredicate, compoundPredicate, nil]];
         }
     }
     
-    NSArray *fetchedObjects = [self MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"%K in %@", primaryAttribute.name, keysToFetchBy] inContext:context];
+    NSArray *fetchedObjects = [self MR_findAllWithPredicate:compoundPredicate inContext:context];
     
     NSMutableDictionary *objectCache = [[NSMutableDictionary alloc] initWithCapacity:fetchedObjects.count];
     
     for(NSManagedObject *object in fetchedObjects)
     {
-        [objectCache setObject:object forKey:[object valueForKey:primaryAttribute.name]];
+        NSAttributeDescription *classTypeAttribute = [object.entity MR_subentityAttributeToInheritBy];
+        NSString *key = [NSString stringWithFormat:@"%@.%@", [object valueForKey:classTypeAttribute.name], [object valueForKey:primaryAttribute.name]];
+        [objectCache setObject:object forKey:key];
     }
     
     for(id singleObjectData in listOfObjectData)
     {
+        NSEntityDescription *importedEntity = [[self MR_entityDescription] MR_importedEntityFromObject:singleObjectData];
+        NSAttributeDescription *classTypeAttribute = [importedEntity MR_subentityAttributeToInheritBy];
         
         id primaryKey = [singleObjectData MR_valueForAttribute:primaryAttribute];
-        NSManagedObject *object = [objectCache objectForKey:primaryKey];
+        id typeyKeyValue = [singleObjectData MR_valueForPrimaryKeyAttribute:classTypeAttribute];
+        NSString *key = [NSString stringWithFormat:@"%@.%@", typeyKeyValue, primaryKey];
+
+        NSManagedObject *object = [objectCache objectForKey:key];
         
         if(object == nil)
         {
-            object = [self MR_createInContext:context];
+            object = [importedEntity MR_createInstanceInContext:context];
         }
         
         [object MR_importValuesForKeysWithObject:singleObjectData];

@@ -104,6 +104,7 @@
         <attribute name="stringAttribute" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="AbstractEntity" positionX="-360" positionY="-36" width="128" height="58"/>
         <element name="AbstractRelatedEntity" positionX="106" positionY="-252" width="128" height="60"/>
         <element name="ConcreteRelatedEntity" positionX="0" positionY="0" width="128" height="60"/>
         <element name="EntityWithDiffernentClassName" positionX="0" positionY="0" width="128" height="43"/>
@@ -115,7 +116,6 @@
         <element name="SingleEntityRelatedToMappedEntityWithSecondaryMappings" positionX="0" positionY="0" width="128" height="75"/>
         <element name="SingleEntityWithNoRelationships" positionX="0" positionY="0" width="128" height="255"/>
         <element name="SingleRelatedEntity" positionX="-171" positionY="-207" width="128" height="120"/>
-        <element name="AbstractEntity" positionX="-360" positionY="-36" width="128" height="58"/>
         <element name="SubEntity" positionX="-360" positionY="74" width="128" height="58"/>
     </elements>
 </model>

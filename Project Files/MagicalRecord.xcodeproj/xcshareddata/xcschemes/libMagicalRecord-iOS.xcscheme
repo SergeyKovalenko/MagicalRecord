@@ -20,6 +20,20 @@
                ReferencedContainer = "container:MagicalRecord.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C7CF97FE174984CA008D9D13"
+               BuildableName = "MagicalRecordTests-iOS.octest"
+               BlueprintName = "MagicalRecordTests-iOS"
+               ReferencedContainer = "container:MagicalRecord.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

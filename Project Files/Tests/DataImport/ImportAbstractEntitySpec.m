@@ -36,7 +36,7 @@ describe(@"ImportSingleRelatedEntity", ^{
        NSEntityDescription *abstractEntity = [AbstractEntity MR_entityDescription];
         NSEntityDescription *subentity = [SubEntity MR_entityDescription];
 
-        expect(abstractEntity).toNot.beNil;
+        expect(abstractEntity).to.beNil;
         expect(subentity).toNot.beNil;
 
     });
