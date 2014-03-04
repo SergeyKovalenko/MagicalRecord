@@ -28,6 +28,9 @@
         if ([desiredAttributeType hasSuffix:@"Color"])
         {
             value = colorFromString(value);
+        } else if ([desiredAttributeType hasSuffix:@"NSURL"]){
+            value = colorFromString(value);
+
         }
     }
     else 

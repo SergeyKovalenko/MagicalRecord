@@ -12,6 +12,7 @@
 NSDate * adjustDateForDST(NSDate *date);
 NSDate * dateFromString(NSString *value, NSString *format);
 NSNumber * numberFromString(NSString *value);
+NSURL * URLFromString(NSString *value);
 NSString * attributeNameFromString(NSString *value);
 NSString * primaryKeyNameFromString(NSString *value);
 NSString * subentityKeyNameFromString(NSString *value);

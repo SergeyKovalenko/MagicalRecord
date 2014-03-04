@@ -59,6 +59,10 @@ NSNumber * numberFromString(NSString *value) {
     return [NSNumber numberWithDouble:[value doubleValue]];
 }
 
+NSURL * URLFromString(NSString *value) {
+    return [NSURL URLWithString:value];
+}
+
 NSInteger* newColorComponentsFromString(NSString *serializedColor);
 NSInteger* newColorComponentsFromString(NSString *serializedColor)
 {
