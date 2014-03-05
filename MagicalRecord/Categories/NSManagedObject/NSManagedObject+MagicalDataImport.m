@@ -11,18 +11,19 @@
 
 void MR_swapMethodsFromClass(Class c, SEL orig, SEL new);
 
-NSString * const kMagicalRecordImportCustomDateFormatKey            = @"dateFormat";
-NSString * const kMagicalRecordImportDefaultDateFormatString        = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
+NSString * const kMagicalRecordImportCustomDateFormatKey                 = @"dateFormat";
+NSString * const kMagicalRecordImportDefaultDateFormatString             = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 
-NSString * const kMagicalRecordImportAttributeKeyMapKey             = @"mappedKeyName";
-NSString * const kMagicalRecordImportAttributeValueClassNameKey     = @"attributeValueClassName";
+NSString * const kMagicalRecordImportAttributeKeyMapKey                  = @"mappedKeyName";
+NSString * const kMagicalRecordImportAttributeValueClassNameKey          = @"attributeValueClassName";
+NSString * const kMagicalRecordImportAttributeValueTransformerNameKey    = @"attributeValueTransformerName";
 
-NSString * const kMagicalRecordImportRelationshipMapKey             = @"mappedKeyName";
-NSString * const kMagicalRecordImportRelationshipLinkedByKey        = @"relatedByAttribute";
-NSString * const kMagicalRecordImportRelationshipTypeKey            = @"type";  //this needs to be revisited
+NSString * const kMagicalRecordImportRelationshipMapKey                  = @"mappedKeyName";
+NSString * const kMagicalRecordImportRelationshipLinkedByKey             = @"relatedByAttribute";
+NSString * const kMagicalRecordImportRelationshipTypeKey                 = @"type";  //this needs to be revisited
 
-NSString * const kMagicalRecordImportSubentityLinkedByKey           = @"subentitiesAttribute";
-NSString * const kMagicalRecordImportSubentityClassMapKey           = @"mappedSubentityClassName";
+NSString * const kMagicalRecordImportSubentityLinkedByKey                = @"subentitiesAttribute";
+NSString * const kMagicalRecordImportSubentityClassMapKey                = @"mappedSubentityClassName";
 
 
 NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"useDefaultValueWhenNotPresent";
@@ -340,21 +341,17 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
 {
     NSMutableArray *resultObjects = [NSMutableArray arrayWithCapacity:listOfObjectData.count];
     
-   
-
     NSPredicate *compoundPredicate = nil;
     NSEntityDescription *entity = [self MR_entityDescription];
     NSAttributeDescription *classTypeAttribute = [entity MR_subentityAttributeToInheritBy];
     
     NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"%K == $identifierValue AND $typeKey == $typeValue",primaryAttribute.name];
-
+    
     for(id singleObjectData in listOfObjectData)
     {
-        NSEntityDescription *importedEntity = [entity MR_importedEntityFromObject:singleObjectData];
-        
         id primaryKeyValue = [singleObjectData MR_valueForPrimaryKeyAttribute:primaryAttribute];
         id typeyKeyValue = [singleObjectData MR_valueForAttribute:classTypeAttribute];
-
+        
         if(primaryKeyValue && typeyKeyValue)
         {
             NSString *lookupTypeKey = [singleObjectData MR_lookupKeyForAttribute:classTypeAttribute];
@@ -373,8 +370,8 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
     
     for(NSManagedObject *object in fetchedObjects)
     {
-        NSAttributeDescription *classTypeAttribute = [object.entity MR_subentityAttributeToInheritBy];
-        NSString *key = [NSString stringWithFormat:@"%@.%@", [object valueForKey:classTypeAttribute.name], [object valueForKey:primaryAttribute.name]];
+        NSAttributeDescription *typeAttribute = [object.entity MR_subentityAttributeToInheritBy];
+        NSString *key = [NSString stringWithFormat:@"%@.%@", [object valueForKey:typeAttribute.name], [object valueForKey:primaryAttribute.name]];
         [objectCache setObject:object forKey:key];
     }
     
@@ -386,7 +383,7 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
         id typeyKeyValue = [singleObjectData MR_valueForPrimaryKeyAttribute:classTypeAttribute];
         
         NSString *key = [NSString stringWithFormat:@"%@.%@", typeyKeyValue, primaryKey];
-
+        
         NSManagedObject *object = [objectCache objectForKey:key];
         
         if(object == nil)

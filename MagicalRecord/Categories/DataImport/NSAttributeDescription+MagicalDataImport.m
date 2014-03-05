@@ -23,21 +23,22 @@
     
     NSAttributeType attributeType = [self attributeType];
     NSString *desiredAttributeType = [[self userInfo] valueForKey:kMagicalRecordImportAttributeValueClassNameKey];
-    if (desiredAttributeType) 
+    if (desiredAttributeType)
     {
         if ([desiredAttributeType hasSuffix:@"Color"])
         {
             value = colorFromString(value);
-        } else if ([desiredAttributeType hasSuffix:@"NSURL"]){
-            value = colorFromString(value);
-
-        }
+        } else
+            if ([desiredAttributeType hasSuffix:@"NSURL"])
+            {
+                value = URLFromString(value);
+            }
     }
-    else 
+    else
     {
         if (attributeType == NSDateAttributeType)
         {
-            if (![value isKindOfClass:[NSDate class]]) 
+            if (![value isKindOfClass:[NSDate class]])
             {
                 NSString *dateFormat = [[self userInfo] valueForKey:kMagicalRecordImportCustomDateFormatKey];
                 value = dateFromString([value description], dateFormat ?: kMagicalRecordImportDefaultDateFormatString);
@@ -56,7 +57,7 @@
         }
     }
     
-    return value == [NSNull null] ? nil : value;   
+    return value == [NSNull null] ? nil : value;
 }
 
 @end

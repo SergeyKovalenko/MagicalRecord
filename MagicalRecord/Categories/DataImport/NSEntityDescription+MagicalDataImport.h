@@ -9,6 +9,10 @@
 
 @interface NSEntityDescription (MagicalRecord_DataImport)
 
+- (void)registerValueTransformer:(NSValueTransformer *)transformer forName:(NSString *)name;
+
+- (NSValueTransformer *)valueTransformerForName:(NSString *)name;
+
 - (NSAttributeDescription *) MR_primaryAttributeToRelateBy;
 
 - (NSManagedObject *) MR_createInstanceInContext:(NSManagedObjectContext *)context;
