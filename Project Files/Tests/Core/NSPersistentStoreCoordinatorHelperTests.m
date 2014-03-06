@@ -10,45 +10,41 @@
 
 @implementation NSPersistentStoreCoordinatorHelperTests
 
-- (void) setUp
-{
+- (void)setUp {
     NSURL *testStoreURL = [NSPersistentStore MR_urlForStoreName:@"TestStore.sqlite"];
     [[NSFileManager defaultManager] removeItemAtPath:[testStoreURL path] error:nil];
 }
 
-- (void) testCreateCoodinatorWithSqlitePersistentStore
-{
+- (void)testCreateCoodinatorWithSqlitePersistentStore {
     NSPersistentStoreCoordinator *testCoordinator = [NSPersistentStoreCoordinator MR_coordinatorWithSqliteStoreNamed:@"TestStore.sqlite"];
-    
+
     assertThatUnsignedInteger([[testCoordinator persistentStores] count], is(equalToUnsignedInteger(1)));
 
     NSPersistentStore *store = [[testCoordinator persistentStores] objectAtIndex:0];
     assertThat([store type], is(equalTo(NSSQLiteStoreType)));
 }
 
-- (void) testCreateCoordinatorWithInMemoryStore
-{
+- (void)testCreateCoordinatorWithInMemoryStore {
     NSPersistentStoreCoordinator *testCoordinator = [NSPersistentStoreCoordinator MR_coordinatorWithInMemoryStore];
 
     assertThatUnsignedInteger([[testCoordinator persistentStores] count], is(equalToUnsignedInteger(1)));
-    
+
     NSPersistentStore *store = [[testCoordinator persistentStores] objectAtIndex:0];
     assertThat([store type], is(equalTo(NSInMemoryStoreType)));
 }
 
-- (void) testCanAddAnInMemoryStoreToAnExistingCoordinator
-{
+- (void)testCanAddAnInMemoryStoreToAnExistingCoordinator {
     NSPersistentStoreCoordinator *testCoordinator = [NSPersistentStoreCoordinator MR_coordinatorWithSqliteStoreNamed:@"TestStore.sqlite"];
-    
+
     assertThatUnsignedInteger([[testCoordinator persistentStores] count], is(equalToUnsignedInteger(1)));
-    
+
     NSPersistentStore *firstStore = [[testCoordinator persistentStores] objectAtIndex:0];
     assertThat([firstStore type], is(equalTo(NSSQLiteStoreType)));
-    
+
     [testCoordinator MR_addInMemoryStore];
-    
+
     assertThatUnsignedInteger([[testCoordinator persistentStores] count], is(equalToUnsignedInteger(2)));
-    
+
     NSPersistentStore *secondStore = [[testCoordinator persistentStores] objectAtIndex:1];
     assertThat([secondStore type], is(equalTo(NSInMemoryStoreType)));
 }

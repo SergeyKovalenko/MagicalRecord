@@ -13,9 +13,9 @@
 // #define STORE_USE_CACHE
 
 #ifndef MR_ENABLE_ACTIVE_RECORD_LOGGING
-    #ifdef DEBUG
-        #define MR_ENABLE_ACTIVE_RECORD_LOGGING 1
-    #else
+#ifdef DEBUG
+#define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
+#else
         #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
     #endif
 #endif
@@ -30,7 +30,7 @@
         #define MRLog(...) NSLog(@"%s(%p) %@", __PRETTY_FUNCTION__, self, [NSString stringWithFormat:__VA_ARGS__])
     #endif
 #else
-    #define MRLog(...) ((void)0)
+#define MRLog(...) ((void)0)
 #endif
 
 #ifdef NS_BLOCKS_AVAILABLE
@@ -42,12 +42,12 @@ typedef void (^CoreDataBlock)(NSManagedObjectContext *context);
 
 @interface MagicalRecord : NSObject
 
-+ (NSString *) currentStack;
++ (NSString *)currentStack;
 
-+ (void) cleanUp;
++ (void)cleanUp;
 
-+ (void) setDefaultModelFromClass:(Class)klass;
-+ (void) setDefaultModelNamed:(NSString *)modelName;
-+ (NSString *) defaultStoreName;
++ (void)setDefaultModelFromClass:(Class)klass;
++ (void)setDefaultModelNamed:(NSString *)modelName;
++ (NSString *)defaultStoreName;
 
 @end

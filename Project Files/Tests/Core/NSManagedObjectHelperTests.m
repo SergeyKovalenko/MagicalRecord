@@ -11,108 +11,95 @@
 
 @implementation NSManagedObjectHelperTests
 
-- (void) setUpClass
-{
-    [NSManagedObjectModel MR_setDefaultManagedObjectModel:[NSManagedObjectModel MR_managedObjectModelNamed:@"TestModel.momd"]];   
+- (void)setUpClass {
+    [NSManagedObjectModel MR_setDefaultManagedObjectModel:[NSManagedObjectModel MR_managedObjectModelNamed:@"TestModel.momd"]];
 }
 
-- (void) setUp
-{
+- (void)setUp {
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
 }
 
-- (void) tearDown
-{
+- (void)tearDown {
     [MagicalRecord cleanUp];
 }
 
--(BOOL)shouldRunOnMainThread
-{
+- (BOOL)shouldRunOnMainThread {
     return YES;
 }
 //Test Request Creation
 
-- (void) testCreateFetchRequestForEntity
-{
+- (void)testCreateFetchRequestForEntity {
     NSFetchRequest *testRequest = [SingleRelatedEntity requestAll];
-    
+
     assertThat([[testRequest entity] name], is(equalTo(NSStringFromClass([SingleRelatedEntity class]))));
 }
 
-- (void) testCanRequestFirstEntityWithPredicate
-{
+- (void)testCanRequestFirstEntityWithPredicate {
     NSPredicate *testPredicate = [NSPredicate predicateWithFormat:@"mappedStringAttribute = 'Test Predicate'"];
     NSFetchRequest *testRequest = [SingleRelatedEntity requestFirstWithPredicate:testPredicate];
 
     assertThatInteger([testRequest fetchLimit], is(equalToInteger(1)));
-    assertThat([testRequest predicate], is(equalTo([NSPredicate predicateWithFormat:@"mappedStringAttribute = 'Test Predicate'"])));
+    assertThat([testRequest predicate],
+               is(equalTo([NSPredicate predicateWithFormat:@"mappedStringAttribute = 'Test Predicate'"])));
 }
 
 // Test return result set, all, first
 
-- (void) testCreateRequestForFirstEntity
-{
+- (void)testCreateRequestForFirstEntity {
     NSFetchRequest *testRequest = [SingleRelatedEntity requestFirstByAttribute:@"mappedStringAttribute" withValue:nil];
-    
+
     assertThat([[testRequest entity] name], is(equalTo(NSStringFromClass([SingleRelatedEntity class]))));
     assertThatInteger([testRequest fetchLimit], is(equalToInteger(1)));
     assertThatInteger([testRequest fetchOffset], is(equalToInteger(0)));
     assertThat([testRequest predicate], is(equalTo([NSPredicate predicateWithFormat:@"mappedStringAttribute = nil"])));
 }
 
-- (void) testCanGetEntityDescriptionFromEntityClass
-{
+- (void)testCanGetEntityDescriptionFromEntityClass {
     NSEntityDescription *testDescription = [SingleRelatedEntity entityDescription];
     assertThat(testDescription, is(notNilValue()));
 }
 
 // Test Entity creation
 
-- (void) testCanCreateEntityInstance
-{
+- (void)testCanCreateEntityInstance {
     id testEntity = [SingleRelatedEntity createEntity];
-    
+
     assertThat(testEntity, is(notNilValue()));
 }
 
 // Test Entity Deletion
 
-- (void) testCanDeleteEntityInstance
-{
+- (void)testCanDeleteEntityInstance {
     id testEntity = [SingleRelatedEntity createEntity];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    
+
     assertThatBool([testEntity isDeleted], is(equalToBool(NO)));
-    
+
     [testEntity MR_deleteEntity];
-    
+
     assertThat(testEntity, is(notNilValue()));
     assertThatBool([testEntity isDeleted], is(equalToBool(YES)));
 }
 
 // Test Number of Entities
 
-- (void) createSampleData:(NSInteger)numberOfTestEntitiesToCreate
-{
-    for (int i = 0; i < numberOfTestEntitiesToCreate; i++)
-    {
+- (void)createSampleData:(NSInteger)numberOfTestEntitiesToCreate {
+    for (int i = 0; i < numberOfTestEntitiesToCreate; i++) {
         SingleRelatedEntity *testEntity = [SingleRelatedEntity createEntity];
         testEntity.mappedStringAttribute = [NSString stringWithFormat:@"%d", i / 5];
     }
-    
+
     [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
 }
 
-- (void) testCanSearchForNumberOfAllEntities
-{
+- (void)testCanSearchForNumberOfAllEntities {
     NSInteger numberOfTestEntitiesToCreate = 20;
     [self createSampleData:numberOfTestEntitiesToCreate];
-    
+
     assertThat([SingleRelatedEntity numberOfEntities], is(equalToInteger(numberOfTestEntitiesToCreate)));
 }
 
-- (void) testCanSearchForNumberOfEntitiesWithPredicate
-{
+- (void)testCanSearchForNumberOfEntitiesWithPredicate {
     NSInteger numberOfTestEntitiesToCreate = 20;
     [self createSampleData:numberOfTestEntitiesToCreate];
 

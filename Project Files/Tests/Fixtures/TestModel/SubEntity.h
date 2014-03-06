@@ -10,9 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "AbstractEntity.h"
 
-
 @interface SubEntity : AbstractEntity
 
-@property (nonatomic, retain) NSString * stringAttribute;
+@property (nonatomic, retain) NSString *stringAttribute;
 
 @end

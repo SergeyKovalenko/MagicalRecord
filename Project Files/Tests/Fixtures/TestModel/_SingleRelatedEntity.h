@@ -3,48 +3,35 @@
 
 #import <CoreData/CoreData.h>
 
-
-
 extern const struct SingleRelatedEntityAttributes {
-	__unsafe_unretained NSString *mappedStringAttribute;
+    __unsafe_unretained NSString *mappedStringAttribute;
 } SingleRelatedEntityAttributes;
 
-
-
 extern const struct SingleRelatedEntityRelationships {
-	__unsafe_unretained NSString *testAbstractToManyRelationship;
-	__unsafe_unretained NSString *testAbstractToOneRelationship;
-	__unsafe_unretained NSString *testConcreteToManyRelationship;
-	__unsafe_unretained NSString *testConcreteToOneRelationship;
+    __unsafe_unretained NSString *testAbstractToManyRelationship;
+    __unsafe_unretained NSString *testAbstractToOneRelationship;
+    __unsafe_unretained NSString *testConcreteToManyRelationship;
+    __unsafe_unretained NSString *testConcreteToOneRelationship;
 } SingleRelatedEntityRelationships;
 
-
-
-
-
-
 @class AbstractRelatedEntity;
 @class AbstractRelatedEntity;
 @class ConcreteRelatedEntity;
 @class ConcreteRelatedEntity;
 
-
-
-
-@interface SingleRelatedEntityID : NSManagedObjectID {}
+@interface SingleRelatedEntityID : NSManagedObjectID {
+}
 @end
 
-@interface _SingleRelatedEntity : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
-+ (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SingleRelatedEntityID*)objectID;
+@interface _SingleRelatedEntity : NSManagedObject {
+}
 
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
++ (NSString *)entityName;
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_;
+- (SingleRelatedEntityID *)objectID;
 
-
-
-
-@property (nonatomic, strong) NSString* mappedStringAttribute;
+@property (nonatomic, strong) NSString *mappedStringAttribute;
 
 
 
@@ -56,10 +43,7 @@ extern const struct SingleRelatedEntityRelationships {
 
 @property (nonatomic, strong) NSSet *testAbstractToManyRelationship;
 
-- (NSMutableSet*)testAbstractToManyRelationshipSet;
-
-
-
+- (NSMutableSet *)testAbstractToManyRelationshipSet;
 
 @property (nonatomic, strong) AbstractRelatedEntity *testAbstractToOneRelationship;
 
@@ -70,10 +54,7 @@ extern const struct SingleRelatedEntityRelationships {
 
 @property (nonatomic, strong) NSSet *testConcreteToManyRelationship;
 
-- (NSMutableSet*)testConcreteToManyRelationshipSet;
-
-
-
+- (NSMutableSet *)testConcreteToManyRelationshipSet;
 
 @property (nonatomic, strong) ConcreteRelatedEntity *testConcreteToOneRelationship;
 
@@ -85,49 +66,37 @@ extern const struct SingleRelatedEntityRelationships {
 
 @end
 
-
 @interface _SingleRelatedEntity (TestAbstractToManyRelationshipCoreDataGeneratedAccessors)
-- (void)addTestAbstractToManyRelationship:(NSSet*)value_;
-- (void)removeTestAbstractToManyRelationship:(NSSet*)value_;
-- (void)addTestAbstractToManyRelationshipObject:(AbstractRelatedEntity*)value_;
-- (void)removeTestAbstractToManyRelationshipObject:(AbstractRelatedEntity*)value_;
+
+- (void)addTestAbstractToManyRelationship:(NSSet *)value_;
+- (void)removeTestAbstractToManyRelationship:(NSSet *)value_;
+- (void)addTestAbstractToManyRelationshipObject:(AbstractRelatedEntity *)value_;
+- (void)removeTestAbstractToManyRelationshipObject:(AbstractRelatedEntity *)value_;
 @end
 
 @interface _SingleRelatedEntity (TestConcreteToManyRelationshipCoreDataGeneratedAccessors)
-- (void)addTestConcreteToManyRelationship:(NSSet*)value_;
-- (void)removeTestConcreteToManyRelationship:(NSSet*)value_;
-- (void)addTestConcreteToManyRelationshipObject:(ConcreteRelatedEntity*)value_;
-- (void)removeTestConcreteToManyRelationshipObject:(ConcreteRelatedEntity*)value_;
-@end
 
+- (void)addTestConcreteToManyRelationship:(NSSet *)value_;
+- (void)removeTestConcreteToManyRelationship:(NSSet *)value_;
+- (void)addTestConcreteToManyRelationshipObject:(ConcreteRelatedEntity *)value_;
+- (void)removeTestConcreteToManyRelationshipObject:(ConcreteRelatedEntity *)value_;
+@end
 
 @interface _SingleRelatedEntity (CoreDataGeneratedPrimitiveAccessors)
 
+- (NSString *)primitiveMappedStringAttribute;
+- (void)setPrimitiveMappedStringAttribute:(NSString *)value;
 
-- (NSString*)primitiveMappedStringAttribute;
-- (void)setPrimitiveMappedStringAttribute:(NSString*)value;
+- (NSMutableSet *)primitiveTestAbstractToManyRelationship;
+- (void)setPrimitiveTestAbstractToManyRelationship:(NSMutableSet *)value;
 
+- (AbstractRelatedEntity *)primitiveTestAbstractToOneRelationship;
+- (void)setPrimitiveTestAbstractToOneRelationship:(AbstractRelatedEntity *)value;
 
+- (NSMutableSet *)primitiveTestConcreteToManyRelationship;
+- (void)setPrimitiveTestConcreteToManyRelationship:(NSMutableSet *)value;
 
-
-
-- (NSMutableSet*)primitiveTestAbstractToManyRelationship;
-- (void)setPrimitiveTestAbstractToManyRelationship:(NSMutableSet*)value;
-
-
-
-- (AbstractRelatedEntity*)primitiveTestAbstractToOneRelationship;
-- (void)setPrimitiveTestAbstractToOneRelationship:(AbstractRelatedEntity*)value;
-
-
-
-- (NSMutableSet*)primitiveTestConcreteToManyRelationship;
-- (void)setPrimitiveTestConcreteToManyRelationship:(NSMutableSet*)value;
-
-
-
-- (ConcreteRelatedEntity*)primitiveTestConcreteToOneRelationship;
-- (void)setPrimitiveTestConcreteToOneRelationship:(ConcreteRelatedEntity*)value;
-
+- (ConcreteRelatedEntity *)primitiveTestConcreteToOneRelationship;
+- (void)setPrimitiveTestConcreteToOneRelationship:(ConcreteRelatedEntity *)value;
 
 @end

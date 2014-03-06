@@ -3,59 +3,40 @@
 
 #import "_SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey.h"
 
-
-
-
-const struct SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyRelationships SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyRelationships = {
-	.mappedEntity = @"mappedEntity",
-};
-
-
-
-
-
+const struct SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyRelationships SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyRelationships = {.mappedEntity = @"mappedEntity",};
 
 @implementation SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyID
 @end
 
 @implementation _SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey" inManagedObjectContext:moc_];
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription insertNewObjectForEntityForName:@"SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey"
+                                         inManagedObjectContext:moc_];
 }
 
-+ (NSString*)entityName {
-	return @"SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey";
++ (NSString *)entityName {
+    return @"SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey";
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey" inManagedObjectContext:moc_];
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription entityForName:@"SingleEntityRelatedToMappedEntityUsingMappedPrimaryKey"
+                       inManagedObjectContext:moc_];
 }
 
-- (SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyID*)objectID {
-	return (SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyID*)[super objectID];
+- (SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyID *)objectID {
+    return (SingleEntityRelatedToMappedEntityUsingMappedPrimaryKeyID *) [super objectID];
 }
 
-+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	return keyPaths;
+    return keyPaths;
 }
-
-
-
 
 @dynamic mappedEntity;
-
-	
-
-
-
-
-
 
 @end
 

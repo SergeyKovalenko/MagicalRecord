@@ -1,6 +1,5 @@
 {
-    "mappedEntities":
-    [
+    "mappedEntities": [
         {
             "id": 1,
             "sampleAttribute": "Sample Attribute Value 1"

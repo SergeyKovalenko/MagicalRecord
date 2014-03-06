@@ -3,36 +3,20 @@
 
 #import <CoreData/CoreData.h>
 
-
-
-
-
-
-
-
-
-
-
-
-@interface DifferentClassNameMappingID : NSManagedObjectID {}
+@interface DifferentClassNameMappingID : NSManagedObjectID {
+}
 @end
 
-@interface _DifferentClassNameMapping : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
-+ (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (DifferentClassNameMappingID*)objectID;
+@interface _DifferentClassNameMapping : NSManagedObject {
+}
 
-
-
-
-
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
++ (NSString *)entityName;
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_;
+- (DifferentClassNameMappingID *)objectID;
 
 @end
-
-
 
 @interface _DifferentClassNameMapping (CoreDataGeneratedPrimitiveAccessors)
-
 
 @end

@@ -8,41 +8,36 @@
 
 #import "NSManagedObjectContextHelperTests.h"
 #import "SingleEntityWithNoRelationships.h";
+
 @implementation NSManagedObjectContextHelperTests
 
-- (void) setUp
-{
+- (void)setUp {
     [MagicalRecord setupCoreDataStackWithInMemoryStore];
 }
 
-- (void) tearDown
-{
+- (void)tearDown {
     [MagicalRecord cleanUp];
 }
 
-- (void) testCanCreateContextForCurrentThead
-{
+- (void)testCanCreateContextForCurrentThead {
     NSManagedObjectContext *firstContext = [NSManagedObjectContext MR_contextForCurrentThread];
     NSManagedObjectContext *secondContext = [NSManagedObjectContext MR_contextForCurrentThread];
-    
+
     assertThat(firstContext, is(equalTo(secondContext)));
 }
 
-- (void) testCanNotifyDefaultContextOnSave
-{
+- (void)testCanNotifyDefaultContextOnSave {
     NSManagedObjectContext *testContext = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_defaultContext]];
 
-   assertThat([testContext parentContext], is(equalTo([NSManagedObjectContext MR_defaultContext])));
+    assertThat([testContext parentContext], is(equalTo([NSManagedObjectContext MR_defaultContext])));
 }
 
-- (void) testThatSavedObjectsHavePermanentIDs
-{
+- (void)testThatSavedObjectsHavePermanentIDs {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
     SingleEntityWithNoRelationships *entity = [SingleEntityWithNoRelationships MR_createInContext:context];
     assertThatBool([[entity objectID] isTemporaryID], equalToBool(YES));
     [context MR_saveOnlySelfAndWait];
     assertThatBool([[entity objectID] isTemporaryID], equalToBool(NO));
 }
-
 
 @end

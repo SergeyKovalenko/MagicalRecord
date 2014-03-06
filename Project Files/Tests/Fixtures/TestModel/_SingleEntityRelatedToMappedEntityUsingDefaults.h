@@ -3,45 +3,29 @@
 
 #import <CoreData/CoreData.h>
 
-
-
 extern const struct SingleEntityRelatedToMappedEntityUsingDefaultsAttributes {
-	__unsafe_unretained NSString *singleEntityRelatedToMappedEntityUsingDefaultsID;
+    __unsafe_unretained NSString *singleEntityRelatedToMappedEntityUsingDefaultsID;
 } SingleEntityRelatedToMappedEntityUsingDefaultsAttributes;
 
-
-
 extern const struct SingleEntityRelatedToMappedEntityUsingDefaultsRelationships {
-	__unsafe_unretained NSString *mappedEntity;
+    __unsafe_unretained NSString *mappedEntity;
 } SingleEntityRelatedToMappedEntityUsingDefaultsRelationships;
-
-
-
-
-
 
 @class MappedEntity;
 
-
-
-
-@interface SingleEntityRelatedToMappedEntityUsingDefaultsID : NSManagedObjectID {}
+@interface SingleEntityRelatedToMappedEntityUsingDefaultsID : NSManagedObjectID {
+}
 @end
 
-@interface _SingleEntityRelatedToMappedEntityUsingDefaults : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
-+ (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SingleEntityRelatedToMappedEntityUsingDefaultsID*)objectID;
+@interface _SingleEntityRelatedToMappedEntityUsingDefaults : NSManagedObject {
+}
 
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
++ (NSString *)entityName;
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_;
+- (SingleEntityRelatedToMappedEntityUsingDefaultsID *)objectID;
 
-
-
-
-@property (nonatomic, strong) NSNumber* singleEntityRelatedToMappedEntityUsingDefaultsID;
-
-
-
+@property (nonatomic, strong) NSNumber *singleEntityRelatedToMappedEntityUsingDefaultsID;
 
 @property (atomic) int16_t singleEntityRelatedToMappedEntityUsingDefaultsIDValue;
 - (int16_t)singleEntityRelatedToMappedEntityUsingDefaultsIDValue;
@@ -64,23 +48,15 @@ extern const struct SingleEntityRelatedToMappedEntityUsingDefaultsRelationships 
 
 @end
 
-
-
 @interface _SingleEntityRelatedToMappedEntityUsingDefaults (CoreDataGeneratedPrimitiveAccessors)
 
-
-- (NSNumber*)primitiveSingleEntityRelatedToMappedEntityUsingDefaultsID;
-- (void)setPrimitiveSingleEntityRelatedToMappedEntityUsingDefaultsID:(NSNumber*)value;
+- (NSNumber *)primitiveSingleEntityRelatedToMappedEntityUsingDefaultsID;
+- (void)setPrimitiveSingleEntityRelatedToMappedEntityUsingDefaultsID:(NSNumber *)value;
 
 - (int16_t)primitiveSingleEntityRelatedToMappedEntityUsingDefaultsIDValue;
 - (void)setPrimitiveSingleEntityRelatedToMappedEntityUsingDefaultsIDValue:(int16_t)value_;
 
-
-
-
-
-- (MappedEntity*)primitiveMappedEntity;
-- (void)setPrimitiveMappedEntity:(MappedEntity*)value;
-
+- (MappedEntity *)primitiveMappedEntity;
+- (void)setPrimitiveMappedEntity:(MappedEntity *)value;
 
 @end

@@ -12,51 +12,45 @@
 
 @implementation NSAttributeDescription (MagicalRecord_DataImport)
 
-- (NSString *) MR_primaryKey;
-{
+- (NSString *)MR_primaryKey; {
     return nil;
 }
 
-- (id) MR_valueForKeyPath:(NSString *)keyPath fromObjectData:(id)objectData;
-{
+- (id)MR_valueForKeyPath:(NSString *)keyPath fromObjectData:(id)objectData; {
     id value = [objectData valueForKeyPath:keyPath];
-    
+
     NSAttributeType attributeType = [self attributeType];
     NSString *desiredAttributeType = [[self userInfo] valueForKey:kMagicalRecordImportAttributeValueClassNameKey];
-    if (desiredAttributeType)
-    {
-        if ([desiredAttributeType hasSuffix:@"Color"])
-        {
-            value = colorFromString(value);
-        } else
-            if ([desiredAttributeType hasSuffix:@"NSURL"])
-            {
-                value = URLFromString(value);
-            }
+    NSString *desiredTransformerForAttributeType = [[self userInfo] valueForKey:kMagicalRecordImportAttributeValueTransformerNameKey];
+
+    if (desiredTransformerForAttributeType) {
+        NSValueTransformer *attributeTransformer = [NSValueTransformer valueTransformerForName:desiredTransformerForAttributeType];
+        NSAssert(attributeTransformer, @"attributeTransformer should not be nil");
+        return [attributeTransformer transformedValue:value];
     }
-    else
-    {
-        if (attributeType == NSDateAttributeType)
-        {
-            if (![value isKindOfClass:[NSDate class]])
-            {
+    else if (desiredAttributeType) {
+        if ([desiredAttributeType hasSuffix:@"Color"]) {
+            value = colorFromString(value);
+        }
+        else if ([desiredAttributeType hasSuffix:@"NSURL"]) {
+            value = URLFromString(value);
+        }
+    }
+    else {
+        if (attributeType == NSDateAttributeType) {
+            if (![value isKindOfClass:[NSDate class]]) {
                 NSString *dateFormat = [[self userInfo] valueForKey:kMagicalRecordImportCustomDateFormatKey];
                 value = dateFromString([value description], dateFormat ?: kMagicalRecordImportDefaultDateFormatString);
             }
             //            value = adjustDateForDST(value);
         }
-        else if (attributeType == NSInteger16AttributeType ||
-                 attributeType == NSInteger32AttributeType ||
-                 attributeType == NSInteger64AttributeType ||
-                 attributeType == NSDecimalAttributeType ||
-                 attributeType == NSDoubleAttributeType ||
-                 attributeType == NSFloatAttributeType) {
+        else if (attributeType == NSInteger16AttributeType || attributeType == NSInteger32AttributeType || attributeType == NSInteger64AttributeType || attributeType == NSDecimalAttributeType || attributeType == NSDoubleAttributeType || attributeType == NSFloatAttributeType) {
             if (![value isKindOfClass:[NSNumber class]] && value != [NSNull null]) {
                 value = numberFromString([value description]);
             }
         }
     }
-    
+
     return value == [NSNull null] ? nil : value;
 }
 

@@ -7,8 +7,6 @@
 //
 
 #import "MagicalDataImportTestCase.h"
-#import "MappedEntity.h"
-#import "SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey.h"
 
 @interface ImportSingleEntityRelatedToManyMappedEntitiesUsingListOfPrimaryKeysTests : MagicalDataImportTestCase
 
@@ -16,42 +14,37 @@
 
 @implementation ImportSingleEntityRelatedToManyMappedEntitiesUsingListOfPrimaryKeysTests
 
-- (Class) testEntityClass
-{
+- (Class)testEntityClass {
     return [SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey class];
 }
 
-- (void) setupTestData
-{
+- (void)setupTestData {
     NSManagedObjectContext *context = [NSManagedObjectContext MR_defaultContext];
 
     MappedEntity *related = nil;
-    for (int i = 0; i < 10; i++) 
-    {
+    for (int i = 0; i < 10; i++) {
         MappedEntity *testMappedEntity = [MappedEntity createInContext:context];
         testMappedEntity.testMappedEntityIDValue = i;
         testMappedEntity.sampleAttribute = [NSString stringWithFormat:@"test attribute %d", i];
         related = testMappedEntity;
     }
-    
+
     SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey *entity = [SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey createInContext:context];
     entity.testPrimaryKeyValue = 84;
     [entity addMappedEntitiesObject:related];
-    
+
     [context MR_saveToPersistentStoreAndWait];
 }
 
-- (void) testDataImportUsingListOfPrimaryKeyIDs
-{
+- (void)testDataImportUsingListOfPrimaryKeyIDs {
     SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey *testEntity = [[self testEntityClass] MR_importFromObject:self.testEntityData];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    
+
     assertThat([SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey numberOfEntities], is(equalToInteger(1)));
     assertThat([MappedEntity numberOfEntities], is(equalToInteger(10)));
 
     assertThat(testEntity.mappedEntities, hasCountOf(5));
-    for (MappedEntity *relatedEntity in testEntity.mappedEntities)
-    {
+    for (MappedEntity *relatedEntity in testEntity.mappedEntities) {
         assertThat(relatedEntity.sampleAttribute, containsString(@"test attribute"));
     }
 }

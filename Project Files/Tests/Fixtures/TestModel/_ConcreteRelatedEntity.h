@@ -4,37 +4,23 @@
 #import <CoreData/CoreData.h>
 #import "AbstractRelatedEntity.h"
 
-
-
 extern const struct ConcreteRelatedEntityAttributes {
-	__unsafe_unretained NSString *sampleConcreteAttribute;
+    __unsafe_unretained NSString *sampleConcreteAttribute;
 } ConcreteRelatedEntityAttributes;
 
-
-
-
-
-
-
-
-
-
-
-
-@interface ConcreteRelatedEntityID : AbstractRelatedEntityID {}
+@interface ConcreteRelatedEntityID : AbstractRelatedEntityID {
+}
 @end
 
-@interface _ConcreteRelatedEntity : AbstractRelatedEntity {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
-+ (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (ConcreteRelatedEntityID*)objectID;
+@interface _ConcreteRelatedEntity : AbstractRelatedEntity {
+}
 
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
++ (NSString *)entityName;
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_;
+- (ConcreteRelatedEntityID *)objectID;
 
-
-
-
-@property (nonatomic, strong) NSString* sampleConcreteAttribute;
+@property (nonatomic, strong) NSString *sampleConcreteAttribute;
 
 
 
@@ -47,15 +33,9 @@ extern const struct ConcreteRelatedEntityAttributes {
 
 @end
 
-
-
 @interface _ConcreteRelatedEntity (CoreDataGeneratedPrimitiveAccessors)
 
-
-- (NSString*)primitiveSampleConcreteAttribute;
-- (void)setPrimitiveSampleConcreteAttribute:(NSString*)value;
-
-
-
+- (NSString *)primitiveSampleConcreteAttribute;
+- (void)setPrimitiveSampleConcreteAttribute:(NSString *)value;
 
 @end

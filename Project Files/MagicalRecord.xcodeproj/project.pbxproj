@@ -160,6 +160,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2BD92E0F18C7477B003B0C19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7CF9AF9174988CF008D9D13 /* Expecta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E93067CD13B2E6D100EA26FF;
+			remoteInfo = "Expecta-iOS";
+		};
+		2BD92E1118C7477B003B0C19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 909B48AF17C2EB4300CE8C5E /* Specta.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E9B777A314BA294B00D8DC76;
+			remoteInfo = "Specta-iOS";
+		};
 		9099496C17C2FD5C00BC2B5C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C721C7A213D0A3750097AB6F /* Project object */;
@@ -886,6 +900,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				2BD92E1018C7477B003B0C19 /* PBXTargetDependency */,
+				2BD92E1218C7477B003B0C19 /* PBXTargetDependency */,
 				9099496F17C2FD6100BC2B5C /* PBXTargetDependency */,
 			);
 			name = "MagicalRecordTests-iOS";
@@ -920,6 +936,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Magical Panda Software LLC";
+				TargetAttributes = {
+					C7CF97FE174984CA008D9D13 = {
+						TestTargetID = C7CF97AA17498414008D9D13;
+					};
+				};
 			};
 			buildConfigurationList = C721C7A513D0A3750097AB6F /* Build configuration list for PBXProject "MagicalRecord" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1208,6 +1229,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2BD92E1018C7477B003B0C19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Expecta-iOS";
+			targetProxy = 2BD92E0F18C7477B003B0C19 /* PBXContainerItemProxy */;
+		};
+		2BD92E1218C7477B003B0C19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Specta-iOS";
+			targetProxy = 2BD92E1118C7477B003B0C19 /* PBXContainerItemProxy */;
+		};
 		9099496D17C2FD5C00BC2B5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C7CF97BA1749843F008D9D13 /* libMagicalRecord-OSX */;

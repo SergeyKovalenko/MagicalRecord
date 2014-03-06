@@ -8,31 +8,25 @@
 
 #import "NSString+MagicalDataImport.h"
 
-
 @implementation NSString (MagicalRecord_DataImport)
 
-- (NSString *) MR_capitalizedFirstCharacterString;
-{
-    if ([self length] > 0)
-    {
+- (NSString *)MR_capitalizedFirstCharacterString; {
+    if ([self length] > 0) {
         NSString *firstChar = [[self substringToIndex:1] capitalizedString];
         return [firstChar stringByAppendingString:[self substringFromIndex:1]];
     }
     return self;
 }
 
-- (id) MR_relatedValueForRelationship:(NSRelationshipDescription *)relationshipInfo
-{
+- (id)MR_relatedValueForRelationship:(NSRelationshipDescription *)relationshipInfo {
     return self;
 }
 
-- (id) MR_valueForPrimaryKeyAttribute:(NSAttributeDescription *)primaryKeyAttribute
-{
+- (id)MR_valueForPrimaryKeyAttribute:(NSAttributeDescription *)primaryKeyAttribute {
     return self;
 }
 
-- (NSString *) MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo
-{
+- (NSString *)MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo {
     return nil;
 }
 

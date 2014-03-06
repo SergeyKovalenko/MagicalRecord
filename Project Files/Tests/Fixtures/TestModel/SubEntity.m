@@ -8,10 +8,8 @@
 
 #import "SubEntity.h"
 
-
 @implementation SubEntity
 
 @dynamic stringAttribute;
-
 
 @end

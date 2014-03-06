@@ -1,5 +1,6 @@
 #import "_SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey.h"
 
-@interface SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey : _SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey {}
+@interface SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey : _SingleEntityRelatedToManyMappedEntitiesUsingMappedPrimaryKey {
+}
 // Custom logic goes here.
 @end

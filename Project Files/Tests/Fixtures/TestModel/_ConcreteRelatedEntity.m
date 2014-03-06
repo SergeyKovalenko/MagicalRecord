@@ -3,62 +3,38 @@
 
 #import "_ConcreteRelatedEntity.h"
 
-
-const struct ConcreteRelatedEntityAttributes ConcreteRelatedEntityAttributes = {
-	.sampleConcreteAttribute = @"sampleConcreteAttribute",
-};
-
-
-
-
-
-
-
+const struct ConcreteRelatedEntityAttributes ConcreteRelatedEntityAttributes = {.sampleConcreteAttribute = @"sampleConcreteAttribute",};
 
 @implementation ConcreteRelatedEntityID
 @end
 
 @implementation _ConcreteRelatedEntity
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"ConcreteRelatedEntity" inManagedObjectContext:moc_];
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription insertNewObjectForEntityForName:@"ConcreteRelatedEntity" inManagedObjectContext:moc_];
 }
 
-+ (NSString*)entityName {
-	return @"ConcreteRelatedEntity";
++ (NSString *)entityName {
+    return @"ConcreteRelatedEntity";
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"ConcreteRelatedEntity" inManagedObjectContext:moc_];
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription entityForName:@"ConcreteRelatedEntity" inManagedObjectContext:moc_];
 }
 
-- (ConcreteRelatedEntityID*)objectID {
-	return (ConcreteRelatedEntityID*)[super objectID];
+- (ConcreteRelatedEntityID *)objectID {
+    return (ConcreteRelatedEntityID *) [super objectID];
 }
 
-+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	return keyPaths;
+    return keyPaths;
 }
-
-
-
 
 @dynamic sampleConcreteAttribute;
-
-
-
-
-
-
-
-
-
-
 
 @end
 

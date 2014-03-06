@@ -8,22 +8,17 @@
 
 #import "NSNumber+MagicalDataImport.h"
 
-
-
 @implementation NSNumber (MagicalRecord_DataImport)
 
-- (id) MR_relatedValueForRelationship:(NSRelationshipDescription *)relationshipInfo
-{
+- (id)MR_relatedValueForRelationship:(NSRelationshipDescription *)relationshipInfo {
     return self;
 }
 
-- (id)MR_valueForPrimaryKeyAttribute:(NSAttributeDescription *)primaryKeyAttribute
-{
+- (id)MR_valueForPrimaryKeyAttribute:(NSAttributeDescription *)primaryKeyAttribute {
     return self;
 }
 
-- (NSString *) MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo
-{
+- (NSString *)MR_lookupKeyForAttribute:(NSAttributeDescription *)attributeInfo {
     return nil;
 }
 

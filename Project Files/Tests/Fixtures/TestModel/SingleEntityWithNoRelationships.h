@@ -1,5 +1,6 @@
 #import "_SingleEntityWithNoRelationships.h"
 
-@interface SingleEntityWithNoRelationships : _SingleEntityWithNoRelationships {}
+@interface SingleEntityWithNoRelationships : _SingleEntityWithNoRelationships {
+}
 // Custom logic goes here.
 @end

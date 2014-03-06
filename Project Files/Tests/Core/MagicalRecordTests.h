@@ -6,8 +6,7 @@
 //  Copyright 2011 Magical Panda Software LLC. All rights reserved.
 //
 
-@interface MagicalRecordTests : GHTestCase
-{
+@interface MagicalRecordTests : GHTestCase {
     BOOL errorHandlerWasCalled_;
 }
 

@@ -3,53 +3,30 @@
 
 #import <CoreData/CoreData.h>
 
-
-
 extern const struct MappedEntityAttributes {
-	__unsafe_unretained NSString *mappedEntityID;
-	__unsafe_unretained NSString *nestedAttribute;
-	__unsafe_unretained NSString *sampleAttribute;
-	__unsafe_unretained NSString *testMappedEntityID;
+    __unsafe_unretained NSString *mappedEntityID;
+    __unsafe_unretained NSString *nestedAttribute;
+    __unsafe_unretained NSString *sampleAttribute;
+    __unsafe_unretained NSString *testMappedEntityID;
 } MappedEntityAttributes;
 
-
-
-
-
-
-
 extern const struct MappedEntityUserInfo {
-	__unsafe_unretained NSString *relatedByAttribute;
+    __unsafe_unretained NSString *relatedByAttribute;
 } MappedEntityUserInfo;
 
-
-
-
-
-
-
-
-
-
-
-
-@interface MappedEntityID : NSManagedObjectID {}
+@interface MappedEntityID : NSManagedObjectID {
+}
 @end
 
-@interface _MappedEntity : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
-+ (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (MappedEntityID*)objectID;
+@interface _MappedEntity : NSManagedObject {
+}
 
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
++ (NSString *)entityName;
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_;
+- (MappedEntityID *)objectID;
 
-
-
-
-@property (nonatomic, strong) NSNumber* mappedEntityID;
-
-
-
+@property (nonatomic, strong) NSNumber *mappedEntityID;
 
 @property (atomic) int16_t mappedEntityIDValue;
 - (int16_t)mappedEntityIDValue;
@@ -62,7 +39,7 @@ extern const struct MappedEntityUserInfo {
 
 
 
-@property (nonatomic, strong) NSString* nestedAttribute;
+@property (nonatomic, strong) NSString *nestedAttribute;
 
 
 
@@ -72,7 +49,7 @@ extern const struct MappedEntityUserInfo {
 
 
 
-@property (nonatomic, strong) NSString* sampleAttribute;
+@property (nonatomic, strong) NSString *sampleAttribute;
 
 
 
@@ -82,10 +59,7 @@ extern const struct MappedEntityUserInfo {
 
 
 
-@property (nonatomic, strong) NSNumber* testMappedEntityID;
-
-
-
+@property (nonatomic, strong) NSNumber *testMappedEntityID;
 
 @property (atomic) int64_t testMappedEntityIDValue;
 - (int64_t)testMappedEntityIDValue;
@@ -101,39 +75,24 @@ extern const struct MappedEntityUserInfo {
 
 @end
 
-
-
 @interface _MappedEntity (CoreDataGeneratedPrimitiveAccessors)
 
-
-- (NSNumber*)primitiveMappedEntityID;
-- (void)setPrimitiveMappedEntityID:(NSNumber*)value;
+- (NSNumber *)primitiveMappedEntityID;
+- (void)setPrimitiveMappedEntityID:(NSNumber *)value;
 
 - (int16_t)primitiveMappedEntityIDValue;
 - (void)setPrimitiveMappedEntityIDValue:(int16_t)value_;
 
+- (NSString *)primitiveNestedAttribute;
+- (void)setPrimitiveNestedAttribute:(NSString *)value;
 
+- (NSString *)primitiveSampleAttribute;
+- (void)setPrimitiveSampleAttribute:(NSString *)value;
 
-
-- (NSString*)primitiveNestedAttribute;
-- (void)setPrimitiveNestedAttribute:(NSString*)value;
-
-
-
-
-- (NSString*)primitiveSampleAttribute;
-- (void)setPrimitiveSampleAttribute:(NSString*)value;
-
-
-
-
-- (NSNumber*)primitiveTestMappedEntityID;
-- (void)setPrimitiveTestMappedEntityID:(NSNumber*)value;
+- (NSNumber *)primitiveTestMappedEntityID;
+- (void)setPrimitiveTestMappedEntityID:(NSNumber *)value;
 
 - (int64_t)primitiveTestMappedEntityIDValue;
 - (void)setPrimitiveTestMappedEntityIDValue:(int64_t)value_;
-
-
-
 
 @end

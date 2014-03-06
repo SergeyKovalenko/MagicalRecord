@@ -3,103 +3,66 @@
 
 #import "_SingleRelatedEntity.h"
 
+const struct SingleRelatedEntityAttributes SingleRelatedEntityAttributes = {.mappedStringAttribute = @"mappedStringAttribute",};
 
-const struct SingleRelatedEntityAttributes SingleRelatedEntityAttributes = {
-	.mappedStringAttribute = @"mappedStringAttribute",
-};
-
-
-
-const struct SingleRelatedEntityRelationships SingleRelatedEntityRelationships = {
-	.testAbstractToManyRelationship = @"testAbstractToManyRelationship",
-	.testAbstractToOneRelationship = @"testAbstractToOneRelationship",
-	.testConcreteToManyRelationship = @"testConcreteToManyRelationship",
-	.testConcreteToOneRelationship = @"testConcreteToOneRelationship",
-};
-
-
-
-
-
+const struct SingleRelatedEntityRelationships SingleRelatedEntityRelationships = {.testAbstractToManyRelationship = @"testAbstractToManyRelationship", .testAbstractToOneRelationship = @"testAbstractToOneRelationship", .testConcreteToManyRelationship = @"testConcreteToManyRelationship", .testConcreteToOneRelationship = @"testConcreteToOneRelationship",};
 
 @implementation SingleRelatedEntityID
 @end
 
 @implementation _SingleRelatedEntity
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"SingleRelatedEntity" inManagedObjectContext:moc_];
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription insertNewObjectForEntityForName:@"SingleRelatedEntity" inManagedObjectContext:moc_];
 }
 
-+ (NSString*)entityName {
-	return @"SingleRelatedEntity";
++ (NSString *)entityName {
+    return @"SingleRelatedEntity";
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"SingleRelatedEntity" inManagedObjectContext:moc_];
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription entityForName:@"SingleRelatedEntity" inManagedObjectContext:moc_];
 }
 
-- (SingleRelatedEntityID*)objectID {
-	return (SingleRelatedEntityID*)[super objectID];
+- (SingleRelatedEntityID *)objectID {
+    return (SingleRelatedEntityID *) [super objectID];
 }
 
-+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	return keyPaths;
+    return keyPaths;
 }
-
-
-
 
 @dynamic mappedStringAttribute;
 
-
-
-
-
-
 @dynamic testAbstractToManyRelationship;
 
-	
-- (NSMutableSet*)testAbstractToManyRelationshipSet {
-	[self willAccessValueForKey:@"testAbstractToManyRelationship"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"testAbstractToManyRelationship"];
-  
-	[self didAccessValueForKey:@"testAbstractToManyRelationship"];
-	return result;
+- (NSMutableSet *)testAbstractToManyRelationshipSet {
+    [self willAccessValueForKey:@"testAbstractToManyRelationship"];
+
+    NSMutableSet *result = (NSMutableSet *) [self mutableSetValueForKey:@"testAbstractToManyRelationship"];
+
+    [self didAccessValueForKey:@"testAbstractToManyRelationship"];
+    return result;
 }
-	
 
 @dynamic testAbstractToOneRelationship;
 
-	
-
 @dynamic testConcreteToManyRelationship;
 
-	
-- (NSMutableSet*)testConcreteToManyRelationshipSet {
-	[self willAccessValueForKey:@"testConcreteToManyRelationship"];
-  
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"testConcreteToManyRelationship"];
-  
-	[self didAccessValueForKey:@"testConcreteToManyRelationship"];
-	return result;
+- (NSMutableSet *)testConcreteToManyRelationshipSet {
+    [self willAccessValueForKey:@"testConcreteToManyRelationship"];
+
+    NSMutableSet *result = (NSMutableSet *) [self mutableSetValueForKey:@"testConcreteToManyRelationship"];
+
+    [self didAccessValueForKey:@"testConcreteToManyRelationship"];
+    return result;
 }
-	
 
 @dynamic testConcreteToOneRelationship;
-
-	
-
-
-
-
-
 
 @end
 

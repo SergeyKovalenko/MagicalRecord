@@ -1,9 +1,7 @@
 {
-    "mappedEntity":
-    {
+    "mappedEntity": {
         "mappedEntityID": 42,
-        "attributeValue":
-        {
+        "attributeValue": {
             "nestedValue": "This is a nested value"
         }
     }

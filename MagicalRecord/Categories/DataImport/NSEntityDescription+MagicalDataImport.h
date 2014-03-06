@@ -9,19 +9,17 @@
 
 @interface NSEntityDescription (MagicalRecord_DataImport)
 
-- (void)registerValueTransformer:(NSValueTransformer *)transformer forName:(NSString *)name;
+- (NSAttributeDescription *)MR_primaryAttributeToRelateBy;
 
-- (NSValueTransformer *)valueTransformerForName:(NSString *)name;
+- (NSString *)MR_subentityImportKey;
 
-- (NSAttributeDescription *) MR_primaryAttributeToRelateBy;
+- (id)MR_subentityTypeToInheritByFromObject:(id)importedObject;
 
-- (NSManagedObject *) MR_createInstanceInContext:(NSManagedObjectContext *)context;
+- (NSManagedObject *)MR_createInstanceInContext:(NSManagedObjectContext *)context;
 
 - (NSEntityDescription *)MR_importedEntityFromObject:(id)objectData;
 
-- (NSAttributeDescription *) MR_subentityAttributeToInheritBy;
-
-- (NSDictionary *) MR_subentitisByType;
+- (NSDictionary *)MR_subentitiesByType;
 /**
  *	Safely returns an attribute description for the given name, otherwise returns nil. In certain circumstances, the keys of the dictionary returned by `attributesByName` are not standard NSStrings and won't match using object subscripting or standard `objectForKey:` lookups.
  *
@@ -31,6 +29,6 @@
  *
  *	@return	The attribute description for the given name, otherwise nil
  */
-- (NSAttributeDescription *) MR_attributeDescriptionForName:(NSString *)name;
+- (NSAttributeDescription *)MR_attributeDescriptionForName:(NSString *)name;
 
 @end

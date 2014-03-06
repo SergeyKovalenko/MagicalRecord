@@ -17,16 +17,14 @@
 
 @implementation ImportSingleEntityRelatedToMappedEntityWithNestedMappedAttributesTests
 
-- (Class) testEntityClass
-{
+- (Class)testEntityClass {
     return [SingleEntityRelatedToMappedEntityWithNestedMappedAttributes class];
 }
 
-- (void) testDataImport
-{
+- (void)testDataImport {
     SingleEntityRelatedToMappedEntityWithNestedMappedAttributes *entity = [[self testEntityClass] MR_importFromObject:self.testEntityData];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    
+
     assertThat(entity.mappedEntity, is(notNilValue()));
     assertThat(entity.mappedEntity.mappedEntityID, is(equalToInteger(42)));
     assertThat(entity.mappedEntity.nestedAttribute, containsString(@"nested value"));

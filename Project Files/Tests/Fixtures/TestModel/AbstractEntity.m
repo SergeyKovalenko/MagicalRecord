@@ -8,7 +8,6 @@
 
 #import "AbstractEntity.h"
 
-
 @implementation AbstractEntity
 
 @dynamic abstractAttribute;

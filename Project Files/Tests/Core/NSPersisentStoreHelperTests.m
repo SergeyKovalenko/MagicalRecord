@@ -10,61 +10,62 @@
 
 @implementation NSPersisentStoreHelperTests
 
-- (NSString *) applicationStorageDirectory
-{
-    NSString *appSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject];
+- (NSString *)applicationStorageDirectory {
+    NSString *appSupportDirectory = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                                         NSUserDomainMask, YES) lastObject];
     appSupportDirectory = [appSupportDirectory stringByAppendingPathComponent:@"iOS App Unit Tests"];
     return appSupportDirectory;
 }
 
 #if TARGET_OS_IPHONE
 
-- (void) testDefaultStoreFolderForiOSDevicesIsTheApplicationSupportFolder
-{
+- (void)testDefaultStoreFolderForiOSDevicesIsTheApplicationSupportFolder {
     NSString *applicationLibraryDirectory = [self applicationStorageDirectory];
     NSString *defaultStoreName = kMagicalRecordDefaultStoreFileName;
-    
+
     NSURL *expectedStoreUrl = [NSURL fileURLWithPath:[applicationLibraryDirectory stringByAppendingPathComponent:defaultStoreName]];
-    
+
     NSURL *defaultStoreUrl = [NSPersistentStore defaultLocalStoreUrl];
-    
+
     assertThat(defaultStoreUrl, is(equalTo(expectedStoreUrl)));
 }
 
-
-- (void) testCanFindAURLInTheLibraryForiOSForASpecifiedStoreName
-{
+- (void)testCanFindAURLInTheLibraryForiOSForASpecifiedStoreName {
     NSString *storeFileName = @"NotTheDefaultStoreName.storefile";
     NSString *applicationLibraryDirectory = [self applicationStorageDirectory];
     NSString *testStorePath = [applicationLibraryDirectory stringByAppendingPathComponent:storeFileName];
-    
-    BOOL fileWasCreated = [[NSFileManager defaultManager] createFileAtPath:testStorePath contents:[storeFileName dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
-    
+
+    BOOL fileWasCreated = [[NSFileManager defaultManager] createFileAtPath:testStorePath
+                                                                  contents:[storeFileName dataUsingEncoding:NSUTF8StringEncoding]
+                                                                attributes:nil];
+
     assertThatBool(fileWasCreated, is(equalToBool(YES)));
-    
+
     NSURL *expectedFoundStoreUrl = [NSURL fileURLWithPath:testStorePath];
     NSURL *foundStoreUrl = [NSPersistentStore urlForStoreName:storeFileName];
-    
+
     assertThat(foundStoreUrl, is(equalTo(expectedFoundStoreUrl)));
-    
+
     [[NSFileManager defaultManager] removeItemAtPath:testStorePath error:nil];
 }
 
-- (void) testCanFindAURLInDocumentsFolderForiOSForASpecifiedStoreName
-{
+- (void)testCanFindAURLInDocumentsFolderForiOSForASpecifiedStoreName {
     NSString *storeFileName = @"NotTheDefaultStoreName.storefile";
-    NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *documentDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                       NSUserDomainMask, YES) lastObject];
     NSString *testStorePath = [documentDirectory stringByAppendingPathComponent:storeFileName];
-    
-    BOOL fileWasCreated = [[NSFileManager defaultManager] createFileAtPath:testStorePath contents:[storeFileName dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
-    
+
+    BOOL fileWasCreated = [[NSFileManager defaultManager] createFileAtPath:testStorePath
+                                                                  contents:[storeFileName dataUsingEncoding:NSUTF8StringEncoding]
+                                                                attributes:nil];
+
     assertThatBool(fileWasCreated, is(equalToBool(YES)));
-    
+
     NSURL *expectedFoundStoreUrl = [NSURL fileURLWithPath:testStorePath];
     NSURL *foundStoreUrl = [NSPersistentStore urlForStoreName:storeFileName];
-    
+
     assertThat(foundStoreUrl, is(equalTo(expectedFoundStoreUrl)));
-    
+
     [[NSFileManager defaultManager] removeItemAtPath:testStorePath error:nil];
 }
 
@@ -104,6 +105,5 @@
 }
 
 #endif
-
 
 @end

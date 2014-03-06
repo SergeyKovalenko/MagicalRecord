@@ -7,101 +7,62 @@
 //
 
 #import "CoreData+MagicalRecord.h"
-#import "NSEntityDescription+MagicalDataImport.h"
-#import <objc/runtime.h>
-
 
 @implementation NSEntityDescription (MagicalRecord_DataImport)
 
-- (dispatch_queue_t)transformersQueue {
-    @synchronized (self){
-        dispatch_queue_t transformersQueue = objc_getAssociatedObject(self, @selector(transformersQueue));
-        if (transformersQueue == nil) {
-            transformersQueue = dispatch_queue_create("NSEntityDescription transformers queue", DISPATCH_QUEUE_SERIAL);
-            objc_setAssociatedObject(self,
-                                     @selector(transformersQueue),
-                                     transformersQueue,
-                                     OBJC_ASSOCIATION_RETAIN);
-        }
-        return transformersQueue;
-    }
-}
-
-- (NSMutableDictionary *)registeredValueTransformers {
-    NSMutableDictionary *transformers = objc_getAssociatedObject(self, @selector(registeredValueTransformers));
-    if (transformers == nil) {
-        transformers = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self,
-                                 @selector(registeredValueTransformers),
-                                 transformers,
-                                 OBJC_ASSOCIATION_RETAIN);
-    }
-    return transformers;
-}
-
-- (void)registerValueTransformer:(NSValueTransformer *)transformer forName:(NSString *)name {
-    dispatch_sync(self.transformersQueue, ^{
-        self.registeredValueTransformers[name] = transformer;
-    });
-}
-
-- (NSValueTransformer *)valueTransformerForName:(NSString *)name {
-   __block NSValueTransformer *transformer;
-    dispatch_sync(self.transformersQueue, ^{
-        transformer = self.registeredValueTransformers[name];
-    });
-    return transformer;
-}
-
-- (NSAttributeDescription *) MR_primaryAttributeToRelateBy;
-{
-    NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportRelationshipLinkedByKey] ?: primaryKeyNameFromString([self name]);
+- (NSAttributeDescription *)MR_primaryAttributeToRelateBy; {
+    NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportRelationshipLinkedByKey] ?:
+            primaryKeyNameFromString([self name]);
 
     return [self MR_attributeDescriptionForName:lookupKey];
 }
 
-- (NSAttributeDescription *) MR_subentityAttributeToInheritBy;
-{
-    NSAssert(self.subentities.count , @"%@ entity should have subentities entity",self.name);
-    NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportSubentityLinkedByKey] ?: subentityKeyNameFromString([self name]);
-    
-    return [self MR_attributeDescriptionForName:lookupKey];
+- (NSString *)MR_subentityImportKey; {
+    NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportSubentityLinkedByKey] ?:
+            subentityKeyNameFromString([self name]);
+    return lookupKey;
 }
 
-- (NSDictionary *) MR_subentitisByType;
-{
-    NSAssert(self.subentities.count , @"%@ entity should have subentities entity",self.name);
-    NSMutableDictionary *classNamesByType = [NSMutableDictionary dictionary];
+- (id)MR_subentityTypeToInheritByFromObject:(id)importedObject {
+    NSAssert(self.subentities.count, @"%@ entity should have subentities entity", self.name);
+    NSDictionary *userInfo = [self userInfo];
+    NSString *lookupKey = [self MR_subentityImportKey];
+    lookupKey = [importedObject MR_lookupKeyWithMappedKey:lookupKey inUserInfo:userInfo];
+
+    return lookupKey != nil ? [importedObject valueForKeyPath:lookupKey] : nil;
+}
+
+- (NSDictionary *)MR_subentitiesByType {
+    NSAssert(self.subentities.count, @"%@ entity should have subentities entity", self.name);
+    NSString *type = [[self userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
+    NSMutableDictionary *subentitiesByType = [NSMutableDictionary dictionaryWithObject:self forKey:type];
     for (NSEntityDescription *subentity in self.subentities) {
         NSString *type = [[subentity userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
-        classNamesByType[type] = subentity;
+        subentitiesByType[type] = subentity;
     }
-    return [classNamesByType copy];
+    return [subentitiesByType copy];
 }
 
 - (NSEntityDescription *)MR_importedEntityFromObject:(id)objectData {
     if (self.subentities.count) {
-        NSAttributeDescription *subentityAttribute = [self MR_subentityAttributeToInheritBy];
-        NSAssert(subentityAttribute, @"Can't fint subentityAttribute for import");
-        
-        NSString *subentityClassType = [objectData MR_valueForAttribute:subentityAttribute];
-        NSEntityDescription *entityForImport = [[self MR_subentitisByType] objectForKey:subentityClassType];
-        NSAssert(entityForImport, @"Can't fint entityForImport for key %@", subentityClassType);
+        id type = [self MR_subentityTypeToInheritByFromObject:objectData];
+        NSAssert(type, @"Can't fint subentity type for import");
+
+        NSEntityDescription *entityForImport = [[self MR_subentitiesByType] objectForKey:type];
+        NSAssert1(entityForImport, @"Can't fint entityForImport for key %@", type);
         return entityForImport;
     }
     return self;
 }
 
-- (NSManagedObject *) MR_createInstanceInContext:(NSManagedObjectContext *)context;
-{
+- (NSManagedObject *)MR_createInstanceInContext:(NSManagedObjectContext *)context; {
     Class relatedClass = NSClassFromString([self managedObjectClassName]);
     NSManagedObject *newInstance = [relatedClass MR_createInContext:context];
-   
+
     return newInstance;
 }
 
-- (NSAttributeDescription *) MR_attributeDescriptionForName:(NSString *)name;
-{
+- (NSAttributeDescription *)MR_attributeDescriptionForName:(NSString *)name; {
     __block NSAttributeDescription *attributeDescription;
 
     NSDictionary *attributesByName = [self attributesByName];

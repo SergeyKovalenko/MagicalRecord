@@ -7,27 +7,39 @@
 //
 
 #import "Specta.h"
-#define EXP_SHORTHAND
-#import "Expecta.h"
 
-#import "NSManagedObject+MagicalDataImport.h"
+#define EXP_SHORTHAND
+
+#import "Expecta.h"
 
 SpecBegin(NSManagedObjectMagicalDataImport)
 
 describe(@"NSManagedObject+MagicalDataImport", ^{
-	beforeAll(^{
-        [MagicalRecord setDefaultModelFromClass:[self class]];
-        [MagicalRecord setupCoreDataStackWithInMemoryStore];
-	});
+beforeAll(^{
+[
+MagicalRecord setDefaultModelFromClass:
+[
+self class
+]];
+[
+MagicalRecord setupCoreDataStackWithInMemoryStore
+];
+});
 
-    afterEach(^{
-        [NSManagedObjectContext MR_resetContextForCurrentThread];
-        [NSManagedObjectContext MR_resetDefaultContext];
-    });
+afterEach(^{
+[
+NSManagedObjectContext MR_resetContextForCurrentThread
+];
+[
+NSManagedObjectContext MR_resetDefaultContext
+];
+});
 
-    afterAll(^{
-        [MagicalRecord cleanUp];
-    });
+afterAll(^{
+[
+MagicalRecord cleanUp
+];
+});
 });
 
 SpecEnd

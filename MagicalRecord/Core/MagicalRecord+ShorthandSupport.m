@@ -9,20 +9,20 @@
 #import "MagicalRecord+ShorthandSupport.h"
 #import <objc/runtime.h>
 
-
-static NSString * const kMagicalRecordCategoryPrefix = @"MR_";
+static NSString *const kMagicalRecordCategoryPrefix = @"MR_";
 #ifdef MR_SHORTHAND
 static BOOL methodsHaveBeenSwizzled = NO;
 #endif
-
 
 //Dynamic shorthand method helpers
 BOOL addMagicalRecordShortHandMethodToPrefixedClassMethod(Class class, SEL selector);
 BOOL addMagicalRecordShorthandMethodToPrefixedInstanceMethod(Class klass, SEL originalSelector);
 
 void swizzleInstanceMethods(Class originalClass, SEL originalSelector, Class targetClass, SEL newSelector);
-void replaceSelectorForTargetWithSourceImpAndSwizzle(Class originalClass, SEL originalSelector, Class newClass, SEL newSelector);
-
+void replaceSelectorForTargetWithSourceImpAndSwizzle(Class originalClass,
+                                                     SEL originalSelector,
+                                                     Class newClass,
+                                                     SEL newSelector);
 
 @implementation MagicalRecord (ShorthandSupport)
 
@@ -80,65 +80,63 @@ void replaceSelectorForTargetWithSourceImpAndSwizzle(Class originalClass, SEL or
 
 #pragma mark - Support functions for runtime shorthand Method calling
 
-void replaceSelectorForTargetWithSourceImpAndSwizzle(Class sourceClass, SEL sourceSelector, Class targetClass, SEL targetSelector)
-{
+void replaceSelectorForTargetWithSourceImpAndSwizzle(Class sourceClass,
+                                                     SEL sourceSelector,
+                                                     Class targetClass,
+                                                     SEL targetSelector) {
     Method sourceClassMethod = class_getClassMethod(sourceClass, sourceSelector);
     Method targetClassMethod = class_getClassMethod(targetClass, targetSelector);
-    
+
     Class targetMetaClass = objc_getMetaClass([NSStringFromClass(targetClass) cStringUsingEncoding:NSUTF8StringEncoding]);
-    
-    BOOL methodWasAdded = class_addMethod(targetMetaClass, sourceSelector,
+
+    BOOL methodWasAdded = class_addMethod(targetMetaClass,
+                                          sourceSelector,
                                           method_getImplementation(targetClassMethod),
                                           method_getTypeEncoding(targetClassMethod));
-    
-    if (methodWasAdded)
-    {
-        class_replaceMethod(targetMetaClass, targetSelector, 
-                            method_getImplementation(sourceClassMethod), 
+
+    if (methodWasAdded) {
+        class_replaceMethod(targetMetaClass,
+                            targetSelector,
+                            method_getImplementation(sourceClassMethod),
                             method_getTypeEncoding(sourceClassMethod));
     }
 }
 
-BOOL addMagicalRecordShorthandMethodToPrefixedInstanceMethod(Class klass, SEL originalSelector)
-{
+BOOL addMagicalRecordShorthandMethodToPrefixedInstanceMethod(Class klass, SEL originalSelector) {
     NSString *originalSelectorString = NSStringFromSelector(originalSelector);
-    if ([originalSelectorString hasPrefix:@"_"] || [originalSelectorString hasPrefix:@"init"]) return NO;
-    
-    if (![originalSelectorString hasPrefix:kMagicalRecordCategoryPrefix]) 
-    {
+    if ([originalSelectorString hasPrefix:@"_"] || [originalSelectorString hasPrefix:@"init"]) {
+        return NO;
+    }
+
+    if (![originalSelectorString hasPrefix:kMagicalRecordCategoryPrefix]) {
         NSString *prefixedSelector = [kMagicalRecordCategoryPrefix stringByAppendingString:originalSelectorString];
         Method existingMethod = class_getInstanceMethod(klass, NSSelectorFromString(prefixedSelector));
-        
-        if (existingMethod) 
-        {
-            BOOL methodWasAdded = class_addMethod(klass, 
-                                                  originalSelector, 
-                                                  method_getImplementation(existingMethod), 
+
+        if (existingMethod) {
+            BOOL methodWasAdded = class_addMethod(klass,
+                                                  originalSelector,
+                                                  method_getImplementation(existingMethod),
                                                   method_getTypeEncoding(existingMethod));
-            
+
             return methodWasAdded;
         }
     }
     return NO;
 }
 
-
-BOOL addMagicalRecordShortHandMethodToPrefixedClassMethod(Class klass, SEL originalSelector)
-{
+BOOL addMagicalRecordShortHandMethodToPrefixedClassMethod(Class klass, SEL originalSelector) {
     NSString *originalSelectorString = NSStringFromSelector(originalSelector);
-    if (![originalSelectorString hasPrefix:kMagicalRecordCategoryPrefix]) 
-    {
+    if (![originalSelectorString hasPrefix:kMagicalRecordCategoryPrefix]) {
         NSString *prefixedSelector = [kMagicalRecordCategoryPrefix stringByAppendingString:originalSelectorString];
         Method existingMethod = class_getClassMethod(klass, NSSelectorFromString(prefixedSelector));
-        
-        if (existingMethod) 
-        {
+
+        if (existingMethod) {
             Class metaClass = objc_getMetaClass([NSStringFromClass(klass) cStringUsingEncoding:NSUTF8StringEncoding]);
-            BOOL methodWasAdded = class_addMethod(metaClass, 
-                                                  originalSelector, 
-                                                  method_getImplementation(existingMethod), 
+            BOOL methodWasAdded = class_addMethod(metaClass,
+                                                  originalSelector,
+                                                  method_getImplementation(existingMethod),
                                                   method_getTypeEncoding(existingMethod));
-            
+
             return methodWasAdded;
         }
     }

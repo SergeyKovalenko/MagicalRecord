@@ -3,70 +3,44 @@
 
 #import "_SingleEntityRelatedToMappedEntityWithSecondaryMappings.h"
 
+const struct SingleEntityRelatedToMappedEntityWithSecondaryMappingsAttributes SingleEntityRelatedToMappedEntityWithSecondaryMappingsAttributes = {.secondaryMappedAttribute = @"secondaryMappedAttribute",};
 
-const struct SingleEntityRelatedToMappedEntityWithSecondaryMappingsAttributes SingleEntityRelatedToMappedEntityWithSecondaryMappingsAttributes = {
-	.secondaryMappedAttribute = @"secondaryMappedAttribute",
-};
-
-
-
-const struct SingleEntityRelatedToMappedEntityWithSecondaryMappingsRelationships SingleEntityRelatedToMappedEntityWithSecondaryMappingsRelationships = {
-	.mappedRelationship = @"mappedRelationship",
-};
-
-
-
-
-
+const struct SingleEntityRelatedToMappedEntityWithSecondaryMappingsRelationships SingleEntityRelatedToMappedEntityWithSecondaryMappingsRelationships = {.mappedRelationship = @"mappedRelationship",};
 
 @implementation SingleEntityRelatedToMappedEntityWithSecondaryMappingsID
 @end
 
 @implementation _SingleEntityRelatedToMappedEntityWithSecondaryMappings
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"SingleEntityRelatedToMappedEntityWithSecondaryMappings" inManagedObjectContext:moc_];
++ (id)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription insertNewObjectForEntityForName:@"SingleEntityRelatedToMappedEntityWithSecondaryMappings"
+                                         inManagedObjectContext:moc_];
 }
 
-+ (NSString*)entityName {
-	return @"SingleEntityRelatedToMappedEntityWithSecondaryMappings";
++ (NSString *)entityName {
+    return @"SingleEntityRelatedToMappedEntityWithSecondaryMappings";
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
-	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"SingleEntityRelatedToMappedEntityWithSecondaryMappings" inManagedObjectContext:moc_];
++ (NSEntityDescription *)entityInManagedObjectContext:(NSManagedObjectContext *)moc_ {
+    NSParameterAssert(moc_);
+    return [NSEntityDescription entityForName:@"SingleEntityRelatedToMappedEntityWithSecondaryMappings"
+                       inManagedObjectContext:moc_];
 }
 
-- (SingleEntityRelatedToMappedEntityWithSecondaryMappingsID*)objectID {
-	return (SingleEntityRelatedToMappedEntityWithSecondaryMappingsID*)[super objectID];
+- (SingleEntityRelatedToMappedEntityWithSecondaryMappingsID *)objectID {
+    return (SingleEntityRelatedToMappedEntityWithSecondaryMappingsID *) [super objectID];
 }
 
-+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-	
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	return keyPaths;
+    return keyPaths;
 }
-
-
-
 
 @dynamic secondaryMappedAttribute;
 
-
-
-
-
-
 @dynamic mappedRelationship;
-
-	
-
-
-
-
-
 
 @end
 
