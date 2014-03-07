@@ -295,10 +295,12 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
 }
 
 + (NSArray *)MR_importFromArray:(NSArray *)listOfObjectData inContext:(NSManagedObjectContext *)context {
+
     NSEntityDescription *entity = [self MR_entityDescription];
     NSAttributeDescription *primaryAttribute = [entity MR_primaryAttributeToRelateBy];
-
-    return [self MR_importFromArray:listOfObjectData withPrimaryAttribute:primaryAttribute inContext:context];
+    return [self MR_importFromArray:listOfObjectData
+               withPrimaryAttribute:primaryAttribute
+                          inContext:context];
 }
 
 + (NSDictionary *)MR_cachedObjectsForArray:(NSArray *)listOfObjectData
@@ -363,7 +365,6 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
 + (NSArray *)MR_importFromArray:(NSArray *)listOfObjectData
            withPrimaryAttribute:(NSAttributeDescription *)primaryAttribute
                       inContext:(NSManagedObjectContext *)context {
-    NSParameterAssert(primaryAttribute);
 
     NSEntityDescription *entity = [self MR_entityDescription];
     NSMutableArray *resultObjects = [NSMutableArray arrayWithCapacity:listOfObjectData.count];
