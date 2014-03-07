@@ -6,6 +6,7 @@
 //
 
 #import "CoreData+MagicalRecord.h"
+#import "KWExample.h"
 #import <objc/runtime.h>
 
 void MR_swapMethodsFromClass(Class c, SEL orig, SEL new);
@@ -318,13 +319,13 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
         for (id singleObjectData in listOfObjectData) {
             NSEntityDescription *subEntityForImport = [entity MR_importedEntityFromObject:singleObjectData];
             NSAttributeDescription *subentityPrimaryAttribute = [subEntityForImport MR_primaryAttributeToRelateBy];
-            id value = [subEntityForImport MR_subentityTypeToInheritByFromObject:singleObjectData];
+            id value = [entity MR_subentityTypeToInheritByFromObject:singleObjectData];
 
             NSMutableArray *values = substitutionVariables[subentityPrimaryAttribute.name];
             if (!values) {
                 values = [NSMutableArray array];
             }
-            [values addObject:value];
+            [values addObject:[singleObjectData MR_valueForAttribute:subentityPrimaryAttribute]];
             substitutionVariables[subentityPrimaryAttribute.name] = values;
         }
         NSMutableArray *predicates = [NSMutableArray array];
@@ -372,16 +373,17 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
                                           withPrimaryAttribute:primaryAttribute
                                                      inContext:context];
     for (id singleObjectData in listOfObjectData) {
+        NSManagedObject *object = nil;
         NSEntityDescription *importedEntity = [entity MR_importedEntityFromObject:singleObjectData];
-        NSAttributeDescription *primaryAttribute = [importedEntity MR_primaryAttributeToRelateBy];
 
-        id primaryKey = [singleObjectData MR_valueForAttribute:primaryAttribute];
-        NSString *typeKey = [importedEntity MR_subentityTypeToInheritByFromObject:singleObjectData];
-
-        NSString *key = [NSString stringWithFormat:@"%@.%@", typeKey, primaryKey];
-
-        NSManagedObject *object = [objectCache objectForKey:key];
-
+        if (objectCache.count) {
+            NSAttributeDescription *primaryAttribute = [importedEntity MR_primaryAttributeToRelateBy];
+            id primaryKey = [singleObjectData MR_valueForAttribute:primaryAttribute];
+            NSString *typeKey = [entity MR_subentityTypeToInheritByFromObject:singleObjectData];
+            NSString *key = [NSString stringWithFormat:@"%@.%@", typeKey, primaryKey];
+            object = [objectCache objectForKey:key];
+        }
+       
         if (object == nil) {
             object = [importedEntity MR_createInstanceInContext:context];
         }
