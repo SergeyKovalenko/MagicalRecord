@@ -17,16 +17,20 @@
     return [self MR_attributeDescriptionForName:lookupKey];
 }
 
-- (NSString *)MR_subentityImportKey; {
+- (NSString *)MR_subentityImportTypeKey; {
     NSString *lookupKey = [[self userInfo] valueForKey:kMagicalRecordImportSubentityLinkedByKey] ?:
             subentityKeyNameFromString([self name]);
     return lookupKey;
 }
 
+- (NSString *)MR_subentityImportTypeValue; {
+    return [[self userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
+}
+
 - (id)MR_subentityTypeToInheritByFromObject:(id)importedObject {
     NSAssert(self.subentities.count, @"%@ entity should have subentities entity", self.name);
     NSDictionary *userInfo = [self userInfo];
-    NSString *lookupKey = [self MR_subentityImportKey];
+    NSString *lookupKey = [self MR_subentityImportTypeKey];
     lookupKey = [importedObject MR_lookupKeyWithMappedKey:lookupKey inUserInfo:userInfo];
 
     return lookupKey != nil ? [importedObject valueForKeyPath:lookupKey] : nil;
@@ -34,10 +38,10 @@
 
 - (NSDictionary *)MR_subentitiesByType {
     NSAssert(self.subentities.count, @"%@ entity should have subentities entity", self.name);
-    NSString *type = [[self userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
+    NSString *type = [self MR_subentityImportTypeValue];
     NSMutableDictionary *subentitiesByType = [NSMutableDictionary dictionaryWithObject:self forKey:type];
     for (NSEntityDescription *subentity in self.subentities) {
-        NSString *type = [[subentity userInfo] valueForKey:kMagicalRecordImportSubentityClassMapKey] ?: [self name];
+        NSString *type = [subentity MR_subentityImportTypeValue];
         subentitiesByType[type] = subentity;
     }
     return [subentitiesByType copy];

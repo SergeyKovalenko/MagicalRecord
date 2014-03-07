@@ -310,7 +310,6 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
 
     NSPredicate *compoundPredicate = nil;
     NSEntityDescription *entity = [self MR_entityDescription];
-    NSPredicate *predicateTemplate = [NSPredicate predicateWithFormat:@"$identifierName in $identifiers"];
 
     if (entity.subentities.count) {
         //create predicate for retrieving previously created sub-entities
@@ -330,8 +329,16 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
         }
         NSMutableArray *predicates = [NSMutableArray array];
         [substitutionVariables enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSArray *values, BOOL *stop) {
-            NSPredicate *predicate = [predicateTemplate predicateWithSubstitutionVariables:@{@"identifierName" : key,
-                                                                                             @"identifiers"    : values}];
+            
+            NSExpression *lhs = [NSExpression expressionForKeyPath:key];
+            NSExpression *rhs = [NSExpression expressionForConstantValue:values];
+            
+            NSPredicate *predicate = [NSComparisonPredicate
+                                              predicateWithLeftExpression:lhs
+                                              rightExpression:rhs
+                                              modifier:NSDirectPredicateModifier
+                                              type:NSInPredicateOperatorType
+                                              options:0];
             [predicates addObject:predicate];
         }];
         compoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:predicates];
@@ -354,9 +361,9 @@ NSString *const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"u
     NSMutableDictionary *objectCache = [[NSMutableDictionary alloc] initWithCapacity:fetchedObjects.count];
 
     for (NSManagedObject *object in fetchedObjects) {
-        NSAttributeDescription *primaryAttribute = [entity MR_primaryAttributeToRelateBy];
+        NSAttributeDescription *primaryAttribute = [object.entity MR_primaryAttributeToRelateBy];
         NSString *key = [NSString stringWithFormat:@"%@.%@",
-                                                   [object.entity MR_subentityImportKey],
+                                                   [object.entity MR_subentityImportTypeValue],
                                                    [object valueForKey:primaryAttribute.name]];
         [objectCache setObject:object forKey:key];
     }

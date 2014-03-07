@@ -11,7 +11,9 @@
 
 - (NSAttributeDescription *)MR_primaryAttributeToRelateBy;
 
-- (NSString *)MR_subentityImportKey;
+- (NSString *)MR_subentityImportTypeKey;
+
+- (NSString *)MR_subentityImportTypeValue;
 
 - (id)MR_subentityTypeToInheritByFromObject:(id)importedObject;
 
