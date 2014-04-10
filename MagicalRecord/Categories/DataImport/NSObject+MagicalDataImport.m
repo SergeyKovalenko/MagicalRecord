@@ -56,7 +56,7 @@ NSUInteger const kMagicalRecordImportMaximumAttributeFailoverDepth = 10;
 
     NSString *primaryKeyName = [relationshipInfo MR_primaryKey];
     NSAttributeDescription *primaryKeyAttribute = [destinationEntity MR_attributeDescriptionForName:primaryKeyName];
-    return [self MR_valueForAttribute:primaryKeyAttribute];
+    return [self MR_lookupKeyForAttribute:primaryKeyAttribute];
 }
 
 - (id)MR_valueForPrimaryKeyAttribute:(NSAttributeDescription *)primaryKeyAttribute {
