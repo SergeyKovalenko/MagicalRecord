@@ -353,7 +353,7 @@ NSString * const kMagicalRecordImportAttributeUseDefaultValueWhenNotPresent = @"
     for(id singleObjectData in listOfObjectData)
     {
         
-        id primaryKey = [singleObjectData MR_valueForAttribute:primaryAttribute];
+        id primaryKey = [primaryAttribute MR_valueForKeyPath:[singleObjectData MR_lookupKeyForAttribute:primaryAttribute] fromObjectData:singleObjectData];
         NSManagedObject *object = [objectCache objectForKey:primaryKey];
         
         if(object == nil)
